@@ -1,4 +1,4 @@
-name: scan-commit-with-vulnerable-dependency
+name: scan-commit-for-vulnerable-dependencies
 description: Scan a commit to check if it adds a vulnerability to the dependencies of a repo
 author: pedrolacerda
 branding:
@@ -6,7 +6,7 @@ branding:
   color: 'green'
 outputs:
   severity:
-    desciption: 'Severity of the vulnerability'
+    description: 'Severity of the vulnerability'
   patchedVersion:
     description: 'First patched version'
   vulnerableVersion:
