@@ -14,23 +14,23 @@ try {
 //   const payload = JSON.stringify(github.context.payload, undefined, 2)
 //   console.log(`The event payload: ${payload}`);
 
-    const graphqlWithAuth = graphql.defaults({
-        headers: {
-        authorization: GITHUB_TOKEN
-        }
-    });
-    const { vulnerability } = graphqlWithAuth(`
-        {
-            securityVulnerabilities(ecosystem: MAVEN, first:10, package:"com.hotels.styx:styx-api"){
-                nodes{
-                    firstPatchedVersion{identifier},
-                    severity,
-                    updatedAt,
-                    vulnerableVersionRange
-                }
+    const { vulnerability } = graphql(` query getVulnerability($ecosystem: String!, $package: String!){ 
+        securityVulnerabilities(ecosystem:$ecosystem:, first:10, package:$package) {
+            nodes {
+                firstPatchedVersion { identifier },
+                severity,
+                updatedAt,
+                vulnerableVersionRange
             }
         }
-    `);
+    }`, {
+        ecosystem: "MAVEN",
+        package: "com.hotels.styx:styx-api",
+        headers: {
+            authorization: GITHUB_TOKEN
+        }
+    })
+
 
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
