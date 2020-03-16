@@ -1,11 +1,11 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-async function getVulnerability(context){
+async function getVulnerability(vulnerability, ecosystem){
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
     let query = ` 
     query { 
-        securityVulnerabilities(ecosystem: MAVEN, first:10, package:"com.hotels.styx:styx-api") {
+        securityVulnerabilities(ecosystem: MAVEN, first:1, package:"com.hotels.styx:styx-api") {
             nodes {
                 firstPatchedVersion { identifier },
                 severity,
@@ -23,7 +23,9 @@ async function getVulnerability(context){
 }
 
 try {
-    let context = github.context
+    const payload = JSON.stringify(github.context.payload, undefined, 2)
+    console.log(`The event payload: ${payload}`);
+
     console.log(`GitHub Token ${core.getInput('GITHUB_TOKEN')}`)
 
     getVulnerability(context).then(function(values) {
