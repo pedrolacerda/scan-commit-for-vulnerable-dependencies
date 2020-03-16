@@ -18,5 +18,3 @@ outputs:
 runs:
   using: 'node12'
   main:  'dist/index.js'
-
-  /Users/pedrolacerda/GitHub/repos/commit-with-vulnerable-dependency/dist/index.js
