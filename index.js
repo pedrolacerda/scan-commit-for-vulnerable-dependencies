@@ -17,7 +17,7 @@ async function getVulnerability(context){
 
     return await octokit.graphql(query, {
         headers: {
-            authorization: `token ${core.getInput('GITHUB_TOKEN')}`
+            authorization: `Bearer ${core.getInput('GITHUB_TOKEN')}`
         }
     });
 }
