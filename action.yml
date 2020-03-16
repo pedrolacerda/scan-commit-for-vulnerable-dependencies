@@ -4,3 +4,6 @@ author: pedrolacerda
 branding:
   icon: 'package'  
   color: 'green'
+runs:
+  using: 'node12'
+  main:  'index.js'
