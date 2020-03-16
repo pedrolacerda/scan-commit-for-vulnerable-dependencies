@@ -24,11 +24,12 @@ async function getVulnerability(vulnerability, ecosystem){
 
 try {
     const payload = JSON.stringify(github.context.payload, undefined, 2)
+
     console.log(`The event payload: ${payload}`);
 
     console.log(`GitHub Token ${core.getInput('GITHUB_TOKEN')}`)
 
-    getVulnerability(context).then(function(values) {
+    getVulnerability().then(function(values) {
         console.log('Promise values');
         console.log(values.securityVulnerabilities.nodes);
         core.setFailed('Forcing error');
