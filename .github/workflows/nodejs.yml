@@ -24,8 +24,8 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     
-    - uses: pedrolacerda/scan-commit-for-vulnerable-dependencies@master
-    - name: Get vulnerabilities
+    - name: Get vulnerabilities  
+      uses: pedrolacerda/scan-commit-for-vulnerable-dependencies@master
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
      
