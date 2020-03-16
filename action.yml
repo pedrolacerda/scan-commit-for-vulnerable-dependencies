@@ -4,6 +4,10 @@ author: pedrolacerda
 branding:
   icon: 'package'  
   color: 'green'
+inputs:
+  GITHUB_TOKEN:
+    required: true
+    description: 'GitHub Token for API authentication'
 outputs:
   severity:
     description: 'Severity of the vulnerability'
