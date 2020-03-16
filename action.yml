@@ -4,6 +4,13 @@ author: pedrolacerda
 branding:
   icon: 'package'  
   color: 'green'
+outputs:
+  severity:
+    desciption: 'Severity of the vulnerability'
+  patchedVersion:
+    description: 'First patched version'
+  vulnerableVersion:
+    description: 'Vulnerable version range'
 runs:
   using: 'node12'
   main:  'index.js'
