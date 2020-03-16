@@ -28,7 +28,8 @@ try {
 
     getVulnerability(context).then(function(values) {
         console.log('Promise values');
-        console.log(values);
+        console.log(values.securityVulnerabilities.nodes);
+        core.setFailed('Forcing error');
 
     }).catch( error => {
         core.setFailed(error.message);
