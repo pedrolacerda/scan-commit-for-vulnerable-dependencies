@@ -19,7 +19,7 @@ try {
         authorization: GITHUB_TOKEN
         }
     });
-    const { vulnerability } = await graphqlWithAuth(`
+    const { vulnerability } = graphqlWithAuth(`
         {
             securityVulnerabilities(ecosystem: MAVEN, first:10, package:"com.hotels.styx:styx-api"){
                 nodes{
@@ -34,7 +34,7 @@ try {
 
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
-    
+
 } catch (error) {
   core.setFailed(error.message);
 }
