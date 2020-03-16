@@ -19,8 +19,8 @@ jobs:
     - name: Checkout code  
       uses: actions/checkout@v2
 
-    # - name: NPM build
-    #   run: npmp run build
+    - name: NPM build
+      run: npmp run build
     
     - name: Get vulnerabilities  
       uses: ./
