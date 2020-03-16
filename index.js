@@ -15,14 +15,15 @@ async function getVulnerability(context){
         }
     }`
 
-    return await octokit.graphql(query, {headers: {authorization: `token ${process.env.GITHUB_TOKEN}`}});
+    return await octokit.graphql(query, {
+        headers: {
+            authorization: 'token ' + process.env.GITHUB_TOKEN
+        }
+    });
 }
 
 try {
     let context = github.context
-
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
-    console.log(`The event payload: ${payload}`);
 
     let queryReturn = getVulnerability(context)
     console.log(`The query return: ${queryReturn}`);
