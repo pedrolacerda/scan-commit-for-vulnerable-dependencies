@@ -17,7 +17,7 @@ async function getVulnerability(context){
 
     return await octokit.graphql(query, {
         headers: {
-            authorization: `token ${core.getInput('GITHUB_TOKEN')}`
+            authorization: 'token '+ core.getInput('GITHUB_TOKEN')
         }
     });
 }
@@ -27,8 +27,9 @@ try {
     console.log(`GitHub Token ${core.getInput('GITHUB_TOKEN')}`)
 
 
-    let queryReturn = getVulnerability(context)
-    console.log(`The query return: ${queryReturn}`);
+    getVulnerability(context).then(function(values) {
+        console.log(values)
+    })
 
 } catch (error) {
   core.setFailed(error.message);
