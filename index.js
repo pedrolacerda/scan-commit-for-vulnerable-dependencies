@@ -14,10 +14,11 @@ async function getVulnerability(context){
             }
         }
     }`
+    console.log(`GitHub Token ${process.env.GITHUB_TOKEN}`)
 
     return await octokit.graphql(query, {
         headers: {
-            authorization: 'token ' + process.env.GITHUB_TOKEN
+            authorization: `token ${process.env.GITHUB_TOKEN}`
         }
     });
 }
