@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 async function getVulnerability(context){
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN');
+    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
     let query = ` 
     query { 
         securityVulnerabilities(ecosystem: MAVEN, first:10, package:"com.hotels.styx:styx-api") {
