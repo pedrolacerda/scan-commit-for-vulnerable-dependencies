@@ -17,4 +17,4 @@ outputs:
     description: 'Vulnerable version range'
 runs:
   using: 'node12'
-  main:  'index.js'
+  main:  'dist/ndex.js'
