@@ -28,8 +28,10 @@ try {
 
 
     getVulnerability(context).then(function(values) {
-        console.log(values)
-    })
+        console.log('Promise values');
+        console.log(values);
+
+    }).catch( error => console.log(error)); 
 
 
 } catch (error) {
