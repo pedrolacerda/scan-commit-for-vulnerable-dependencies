@@ -24,7 +24,7 @@ async function getVulnerability(context){
 
 try {
     let context = github.context
-    console.log(`GitHub Token ${process.env.GITHUB_TOKEN}`)
+    console.log(`GitHub Token ${core.getInput('GITHUB_TOKEN')}`)
 
 
     let queryReturn = getVulnerability(context)
