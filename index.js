@@ -1,6 +1,33 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const glob = require('@actions/glob');
+
+// [TO-DO] Make it smarter later on
+const mapLanguageEcosystems = {
+    Ruby: {
+        ecosystem: 'RUBYGEMS',
+        file: 'Gemfile'
+    },
+    Javascript: {
+        ecosystem: 'NPM',
+        file: 'package.json'
+    },
+    Python: {
+        ecosystem: 'PIP',
+        file: 'requirements.txt'
+    },
+    Java: {
+        ecosystem: 'MAVEN',
+        file: 'pom.xml'
+    },
+    CSharp: {
+        ecosystem: 'NUGET',
+        file: '.nuspec'
+    },
+    PHP: {
+        ecosystem: 'COMPOSER',
+        file: 'composer.json'
+    }
+}
 
 /*
  * Get a specific vulerability
@@ -40,7 +67,7 @@ async function getPrFiles(prNumber, owner, repo) {
         pull_number: prNumber
     })
 
-    console.log(`Pull Request Data\n ${JSON.stringify(pullRequest, undefined, 2)}`)
+    console.log(`Pull Request Files\n ${JSON.stringify(pullRequest, undefined, 2)}`)
 }
 
 /*
@@ -66,7 +93,7 @@ try {
         // console.log(`The event payload:\n ${payload}`);
 
         // getVulnerability().then(function(values) {
-        //     console.log('Promise values');
+        //     console.log('---------------- Promise values');
         //     console.log(values.securityVulnerabilities.nodes);
         // }).catch( error => {
         //     core.setFailed(error.message);
@@ -75,7 +102,7 @@ try {
         // );
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-            console.log('Promise values');
+            console.log('---------------- Language list promise values');
             console.log(values);
         }).catch( error => {
             core.setFailed(error.message);
@@ -84,7 +111,7 @@ try {
         );
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-            console.log('Promise values');
+            console.log('---------------- PR List promise values');
             console.log(values);
         }).catch( error => {
             core.setFailed(error.message);
