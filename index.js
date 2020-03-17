@@ -68,6 +68,8 @@ async function getPrFiles(prNumber, owner, repo) {
     })
 
     console.log(`Pull Request Files\n ${JSON.stringify(pullRequest, undefined, 2)}`)
+
+    return pullRequest
 }
 
 /*
@@ -82,6 +84,8 @@ async function getLanguageList(owner, repo) {
     })
 
     console.log(`Repo's Language list\n ${JSON.stringify(languageList, undefined, 2)}`)
+
+    return languageList
 }
 
 try {
