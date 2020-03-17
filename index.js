@@ -139,7 +139,7 @@ try {
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
 
-                    https.get(file.blob_url, (res) => {
+                    https.get(file.raw_url, (res) => {
                     console.log('statusCode:', res.statusCode);
                     console.log('headers:', res.headers);
 
