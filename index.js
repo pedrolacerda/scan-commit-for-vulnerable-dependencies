@@ -118,9 +118,9 @@ try {
 
                 //Checks if dependency files were changed
                 for (ecosytemFile in languagesEcosystemsInPR){
-                    console.log(`ecosystem.file: ${ecosytemFile.file}`)
+                    console.log(`ecosystem.file: ${ecosytemFile}`)
                     console.log(`file.filename: ${file.filename}`)
-                    if(ecosytemFile.file == file.filename) {
+                    if(ecosytemFile == file.filename) {
                         console.log(`The dependency file ${file.filename} was changed`)
                     }
                 }
