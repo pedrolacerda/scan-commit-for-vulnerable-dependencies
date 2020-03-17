@@ -103,28 +103,29 @@ try {
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
             languagesEcosystemsInPR = languagesEcosystems.filter(language => typeof values[language.language] !== "undefined")
-        }).catch( error => {
-            core.setFailed(error.message);
-            console.log(error)
-            }
-        );
-        
 
-        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
+            getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             
-            values.forEach( function(file) {
-                console.log(`Filename: ${file.filename}`)
-
-                //Checks if dependency files were changed
-                for (ecosytemFile in languagesEcosystemsInPR){
-                    console.log(`ecosystem.file: ${ecosytemFile.file}`)
-                    console.log(`file.filename: ${file.filename}`)
-                    if(ecosytemFile.file == file.filename) {
-                        console.log(`The dependency file ${file.filename} was changed`)
+                values.forEach( function(file) {
+                    console.log(`Filename: ${file.filename}`)
+    
+                    //Checks if dependency files were changed
+                    for (ecosytemFile in languagesEcosystemsInPR){
+                        console.log(`ecosystem.file: ${ecosytemFile.file}`)
+                        console.log(`file.filename: ${file.filename}`)
+                        if(ecosytemFile.file == file.filename) {
+                            console.log(`The dependency file ${file.filename} was changed`)
+                        }
                     }
+                    console.log(`-----------------------------------------------`)
+                })
+                    
+    
+            }).catch( error => {
+                core.setFailed(error.message);
+                console.log(error)
                 }
-            })
-                
+            );
 
         }).catch( error => {
             core.setFailed(error.message);
