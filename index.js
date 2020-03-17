@@ -100,7 +100,7 @@ try {
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
 
-            let languagesInPR = languagesEcosystems.filter(language => typeof values[language] !== "undefined")
+            let languagesInPR = languagesEcosystems.filter(language => typeof values[language.language] !== "undefined")
             console.log(`Languages in PR with ecosystem: ${languagesInPR}`)
 
             // // Checks if the PR has commits with languages in the ecosystem
