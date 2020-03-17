@@ -33,7 +33,7 @@ try {
 
         console.log(`The event payload: ${payload}`);
 
-        console.log(`PR Number ${payload["number"]}`);
+        console.log(`PR Number ${context.number}`);
 
         getVulnerability().then(function(values) {
             console.log('Promise values');
