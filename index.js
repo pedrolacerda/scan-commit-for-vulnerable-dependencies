@@ -118,8 +118,11 @@ try {
                 console.log(`Filename: ${file.filename}`)
                 
                 //Checks if dependency files were changed
-                var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.filename == file.filename)
-                console.log(`The dependency file ${dependencyFileName} was changed`)
+                var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file === file.filename)
+
+                if(typeof dependencyFileName !== "undefined") {
+                    console.log(`The dependency file ${dependencyFileName.filename} was changed`)
+                }
             })
                 
 
