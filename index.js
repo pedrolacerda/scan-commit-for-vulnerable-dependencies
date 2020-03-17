@@ -23,29 +23,32 @@ async function getVulnerability(vulnerability, ecosystem){
 }
 
 try {
-    const githubJson = JSON.stringify(github, undefined, 2)
-    console.log(`The 'github' variable: ${githubJson}`);
+    let context = github.context
+    console.log(`The event name: ${context.eventName}`);
 
-    const eventName = github["event_name"];
-    console.log(`The event name: ${eventName}`);
+    if(context.eventName == `pull_request`){
+        let eventName = github["event_name"];
+        
+        const payload = JSON.stringify(github.context.payload, undefined, 2);
 
-    const payload = JSON.stringify(github.context.payload, undefined, 2);
+        console.log(`The event payload: ${payload}`);
 
-    console.log(`The event payload: ${payload}`);
+        console.log(`PR Number ${payload["number"]}`);
 
-    console.log(`PR Number ${payload["number"]}`);
+        getVulnerability().then(function(values) {
+            console.log('Promise values');
+            console.log(values.securityVulnerabilities.nodes);
+            core.setFailed('Forcing error');
 
-    getVulnerability().then(function(values) {
-        console.log('Promise values');
-        console.log(values.securityVulnerabilities.nodes);
-        core.setFailed('Forcing error');
-
-    }).catch( error => {
-        core.setFailed(error.message);
-        console.log(error)
-        }
-    ); 
-
+        }).catch( error => {
+            core.setFailed(error.message);
+            console.log(error)
+            }
+        );
+    } else {
+        core.setFailed(`This action was not triggered by a Pull Request`);
+    }
+    
 } catch (error) {
   core.setFailed(error.message);
 }
