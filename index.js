@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const glob = require('@actions/glob');
 
 async function getVulnerability(vulnerability, ecosystem){
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
@@ -27,13 +28,12 @@ try {
     console.log(`The event name: ${context.eventName}`);
 
     if(context.eventName == `pull_request`){
-        console.log(`PR Number [1] ${context.payload.number}`);
-        console.log(`PR Number [2] ${context.number}`);
-        console.log(`PR Number [3] ${context.base.number}`);
-        console.log(`PR Number [4] ${context.payload.base}`);
-
         const payload = JSON.stringify(github.context.payload, undefined, 2);
-        console.log(`The event payload:\n ${payload}`);
+        // console.log(`The event payload:\n ${payload}`);
+
+        let patterns =['**/.xml']
+        let globber = await glob.create(patterns.join('\n'))
+        let files = await globber.glob()
 
         getVulnerability().then(function(values) {
             console.log('Promise values');
