@@ -97,20 +97,13 @@ try {
         //     console.log(error)
         //     }
         // );
+        let languagesEcosystemsInPR
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-
-            let languagesInPR = languagesEcosystems.filter(language => typeof values[language.language] !== "undefined")
-            console.log(`Languages in PR with ecosystem: ${languagesInPR}`)
-
-            // // Checks if the PR has commits with languages in the ecosystem
-            // // and creates a list with them
-            // for (language in languagesEcosystems) {
-            //     if(typeof values[language] !== "undefined") {
-            //         console.log("Language in the ecosystem")
-            //         languagesInPR.add(language)
-            //     }
-            // }
+            // Checks if the PR has commits with languages in the ecosystem
+            // and creates a list with them
+            languagesEcosystemsInPR = languagesEcosystems.filter(language => typeof values[language.language] !== "undefined")
+            console.log(`Languages in PR with ecosystem: ${languagesEcosystemsInPR}`)
 
         }).catch( error => {
             core.setFailed(error.message);
@@ -124,9 +117,9 @@ try {
                 console.log(`Filename: ${file.filename}`)
 
                 //Checks if dependency files were changed
-                for (ecosytemFile in languagesEcosystems){
+                for (ecosytemFile in languagesEcosystemsInPR){
                     if(ecosytemFile.file == filename) {
-
+                        console.log(`The dependency file ${filename} was changed`)
                     }
                 }
             })
