@@ -117,6 +117,7 @@ try {
         );
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
+            console.log(values)
             for (file in values){
                 console.log(`file: ${file}`)
                 // if(file.filename.endsWith("pom.xml")){
