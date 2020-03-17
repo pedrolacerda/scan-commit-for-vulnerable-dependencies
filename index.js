@@ -122,6 +122,7 @@ try {
 
                 if(typeof dependencyFileName !== "undefined") {
                     console.log(`The dependency file ${dependencyFileName.filename} was changed`)
+                    console.log(`Commit sha: ${file.sha}`)
                 }
             })
                 
