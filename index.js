@@ -61,7 +61,7 @@ async function getVulnerability(package, ecosystem) {
 async function getPrFiles(prNumber, owner, repo) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
-    let files = await octokit.pulls.listFiles({
+    let {data: files} = await octokit.pulls.listFiles({
         owner: owner,
         repo: repo,
         pull_number: prNumber
@@ -76,7 +76,7 @@ async function getPrFiles(prNumber, owner, repo) {
 async function getLanguageList(owner, repo) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
-    let languageList =  await octokit.repos.listLanguages({
+    let {data: languageList } =  await octokit.repos.listLanguages({
         owner: owner,
         repo: repo    
     })
