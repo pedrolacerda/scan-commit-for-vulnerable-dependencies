@@ -61,13 +61,11 @@ async function getVulnerability(package, ecosystem) {
 async function getPrFiles(prNumber, owner, repo) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
-    let { data: pullRequest } = await octokit.pulls.listFiles({
+    return await octokit.pulls.listFiles({
         owner: owner,
         repo: repo,
         pull_number: prNumber
     })
-
-    return pullRequest
 }
 
 /*
@@ -76,12 +74,10 @@ async function getPrFiles(prNumber, owner, repo) {
 async function getLanguageList(owner, repo) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
-    let { data: languageList } = await octokit.repos.listLanguages({
+    return await octokit.repos.listLanguages({
         owner: owner,
         repo: repo    
     })
-
-    return languageList
 }
 
 try {
