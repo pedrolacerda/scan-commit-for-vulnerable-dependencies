@@ -3,27 +3,27 @@ const github = require('@actions/github');
 
 // [TO-DO] Make it smarter later on
 const mapLanguageEcosystems = {
-    Ruby: {
+    'Ruby': {
         ecosystem: 'RUBYGEMS',
         file: 'Gemfile'
     },
-    Javascript: {
+    'Javascript': {
         ecosystem: 'NPM',
         file: 'package.json'
     },
-    Python: {
+    'Python': {
         ecosystem: 'PIP',
         file: 'requirements.txt'
     },
-    Java: {
+    'Java': {
         ecosystem: 'MAVEN',
         file: 'pom.xml'
     },
-    CSharp: {
+    'C#': {
         ecosystem: 'NUGET',
         file: '.nuspec'
     },
-    PHP: {
+    'PHP': {
         ecosystem: 'COMPOSER',
         file: 'composer.json'
     }
@@ -86,7 +86,6 @@ async function getLanguageList(owner, repo) {
 
 try {
     let context = github.context
-    console.log(`The event name: ${context.eventName}`);
 
     if(context.eventName == `pull_request`){
         const payload = JSON.stringify(github.context.payload, undefined, 2);
@@ -104,6 +103,10 @@ try {
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             console.log('---------------- Language list promise values');
             console.log(values);
+
+            let repoLanguagesSet = new Set(Object.keys(values))
+            console.log(`Language Set ${repoLanguagesSet}`)
+
         }).catch( error => {
             core.setFailed(error.message);
             console.log(error)
@@ -111,8 +114,8 @@ try {
         );
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-            console.log('---------------- PR List promise values');
-            console.log(values);
+            // console.log('---------------- PR List promise values');
+            // console.log(values);
         }).catch( error => {
             core.setFailed(error.message);
             console.log(error)
