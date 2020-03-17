@@ -65,8 +65,6 @@ try {
         getVulnerability().then(function(values) {
             console.log('Promise values');
             console.log(values.securityVulnerabilities.nodes);
-            core.setFailed('Forcing error');
-
         }).catch( error => {
             core.setFailed(error.message);
             console.log(error)
@@ -76,13 +74,13 @@ try {
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             console.log('Promise values');
             console.log(values);
-            core.setFailed('Forcing error');
-
         }).catch( error => {
             core.setFailed(error.message);
             console.log(error)
             }
         );
+
+        core.setFailed('Forcing error');
 
     } else {
         core.setFailed(`This action was not triggered by a Pull Request`);
