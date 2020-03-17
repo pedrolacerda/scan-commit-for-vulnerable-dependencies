@@ -115,14 +115,14 @@ try {
             console.log(`values api call: ${JSON.stringify(files, undefined, 2)}`)
             
             files.forEach( function(file) {
-                console.log(`Filename: ${file.filename}`)
                 
                 //Checks if dependency files were changed
                 var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file === file.filename)
 
                 if(typeof dependencyFileName !== "undefined") {
-                    console.log(`The dependency file ${dependencyFileName.filename} was changed`)
+                    console.log(`The dependency file ${file.filename} was changed`)
                     console.log(`Commit sha: ${file.sha}`)
+                    console.log(`Patch: ${file.patch}`)
                 }
             })
                 
