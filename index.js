@@ -103,17 +103,13 @@ try {
         // );
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-            // console.log('---------------- Language list promise values ----------------');
-            // console.log(values);
 
-            let repoLanguagesSet = new Set(Object.keys(values))
-            let languagesWithEcosystem = new Set()
-
-            // Create a list with the languages in the repo that can be scanned for vulnerabilities
+            // Checks if a the PR has commits with languages in the ecosystem
             for (language in languagesEcosystems) {
-                console.log(`language: ${ language }`)
+                if(typeof values[language] !== "undefined") {
+                    console.log("Language in the ecosystem")
+                }
 
-                if(typeof values[language] !== "undefined")  console.log('Language on the list')
             }
 
         }).catch( error => {
@@ -122,14 +118,14 @@ try {
             }
         );
 
-        // getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-        //     // console.log('---------------- PR List promise values');
-        //     // console.log(values);
-        // }).catch( error => {
-        //     core.setFailed(error.message);
-        //     console.log(error)
-        //     }
-        // );
+        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
+            console.log('---------------- PR List promise values');
+            console.log(values);
+        }).catch( error => {
+            core.setFailed(error.message);
+            console.log(error)
+            }
+        );
 
         core.setFailed('Forcing error');
 
