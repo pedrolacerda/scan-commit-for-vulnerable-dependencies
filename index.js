@@ -140,7 +140,7 @@ try {
                     console.log(`Patch: ${file.patch}`)
 
                     const fileXML = fs.createWriteStream(file.filename);
-                    const request = http.get(blob_url, function(response) {
+                    const request = http.get(file.blob_url, function(response) {
                         response.pipe(fileXML);
                     });
 
