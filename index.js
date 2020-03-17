@@ -139,7 +139,7 @@ try {
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
 
-                    https.get('https://encrypted.google.com/', (res) => {
+                    https.get(file.blob_url, (res) => {
                     console.log('statusCode:', res.statusCode);
                     console.log('headers:', res.headers);
 
