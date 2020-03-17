@@ -103,7 +103,7 @@ try {
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
             languagesEcosystemsInPR = languagesEcosystems.filter(language => typeof languages[language.language] !== "undefined")
-            console.log(`languagesEcosystemsInPR: ${languagesEcosystemsInPR}`)
+            console.log(`languagesEcosystemsInPR: ${JSON.stringify(languagesEcosystemsInPR)}`)
 
         }).catch( error => {
             core.setFailed(error.message);
@@ -117,10 +117,10 @@ try {
                 console.log(`Filename: ${file.filename}`)
 
                 //Checks if dependency files were changed
-                for (ecosytemFile in languagesEcosystemsInPR){
-                    console.log(`ecosystem.file: ${ecosytemFile}`)
+                for (ecosytemFile[0] in languagesEcosystemsInPR){
+                    console.log(`ecosystem.file: ${ecosytemFile[0]}`)
                     console.log(`file.filename: ${file.filename}`)
-                    if(ecosytemFile == file.filename) {
+                    if(ecosytemFile[0] == file.filename) {
                         console.log(`The dependency file ${file.filename} was changed`)
                     }
                 }
