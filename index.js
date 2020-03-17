@@ -74,10 +74,12 @@ async function getPrFiles(prNumber, owner, repo) {
 async function getLanguageList(owner, repo) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
-    return await octokit.repos.listLanguages({
+    let languageList =  await octokit.repos.listLanguages({
         owner: owner,
         repo: repo    
     })
+
+    return languageList
 }
 
 try {
@@ -108,7 +110,7 @@ try {
         );
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then( files => {
-            console.log(`values api call: ${files}`)
+            console.log(`values api call: ${JSON.stringify(files)}`)
             files.forEach( function(file) {
                 console.log(`Filename: ${file.filename}`)
 
