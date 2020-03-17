@@ -140,7 +140,7 @@ try {
                     console.log(`Patch: ${file.patch}`)
 
                     const options = {
-                        hostname: file.raw_url,
+                        hostname: 'https://raw.githubusercontent.com/octodemo/demo-pedrolacerda/master/pom.xml?token=AAEUWNGNTEQY5YPYGQJMISC6PKJJU',
                         method: 'GET',
                         headers: {
                             'Accept': 'application/vnd.github.antiope-preview+json',
