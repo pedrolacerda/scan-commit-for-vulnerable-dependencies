@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 // [TO-DO] Make it smarter later on
-const mapLanguageEcosystems = {
+const languageEcosystems = {
     'Ruby': {
         ecosystem: 'RUBYGEMS',
         file: 'Gemfile'
@@ -83,8 +83,6 @@ async function getLanguageList(owner, repo) {
         repo: repo    
     })
 
-    console.log(`Repo's Language list\n ${JSON.stringify(languageList, undefined, 2)}`)
-
     return languageList
 }
 
@@ -110,6 +108,10 @@ try {
 
             let repoLanguagesSet = new Set(Object.keys(values))
             console.log(`Language Set ${repoLanguagesSet}`)
+
+            languageEcosystems.forEach((item) => {
+                console.log(`repoLanguagesSet.has(item): ${ repoLanguagesSet.has(item) }`)
+            })
 
         }).catch( error => {
             core.setFailed(error.message);
