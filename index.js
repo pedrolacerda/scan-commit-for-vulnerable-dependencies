@@ -67,8 +67,6 @@ async function getPrFiles(prNumber, owner, repo) {
         pull_number: prNumber
     })
 
-    console.log(`Pull Request Files\n ${JSON.stringify(pullRequest, undefined, 2)}`)
-
     return pullRequest
 }
 
@@ -104,7 +102,7 @@ try {
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
 
-            // Checks if a the PR has commits with languages in the ecosystem
+            // Checks if the PR has commits with languages in the ecosystem
             for (language in languagesEcosystems) {
                 if(typeof values[language] !== "undefined") {
                     console.log("Language in the ecosystem")
@@ -120,7 +118,7 @@ try {
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             console.log('---------------- PR List promise values');
-            console.log(values);
+            console.log(values[0]);
         }).catch( error => {
             core.setFailed(error.message);
             console.log(error)
