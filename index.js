@@ -113,13 +113,14 @@ try {
         
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
+            
             values.forEach(function(file){
                 console.log(`Filename: ${file.filename}`)
 
                 //Checks if dependency files were changed
                 for (ecosytemFile in languagesEcosystemsInPR){
-                    if(ecosytemFile.file == filename) {
-                        console.log(`The dependency file ${filename} was changed`)
+                    if(ecosytemFile.file == file.filename) {
+                        console.log(`The dependency file ${file.filename} was changed`)
                     }
                 }
             })
