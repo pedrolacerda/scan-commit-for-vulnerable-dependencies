@@ -23,11 +23,11 @@ async function getVulnerability(vulnerability, ecosystem){
 }
 
 try {
-    const context = JSON.stringify(github.context, undefined, 2)
-    console.log(`The event context: ${context}`);
+    //const context = JSON.stringify(github.context, undefined, 2)
+    console.log(`The 'github' variable: ${github}`);
 
     const eventName = github.event_name
-    console.log(`The event context: ${eventName}`);
+    console.log(`The event name: ${eventName}`);
 
     const payload = JSON.stringify(github.context.payload, undefined, 2)
 
