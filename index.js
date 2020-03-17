@@ -113,11 +113,12 @@ try {
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then( files => {
             console.log(`values api call: ${JSON.stringify(files)}`)
+            
             files.forEach( function(file) {
                 console.log(`Filename: ${file.filename}`)
 
                 //Checks if dependency files were changed
-                for (ecosytemFile[0] in languagesEcosystemsInPR){
+                for (ecosytemFile in languagesEcosystemsInPR){
                     console.log(`ecosystem.file: ${ecosytemFile[0]}`)
                     console.log(`file.filename: ${file.filename}`)
                     if(ecosytemFile[0] == file.filename) {
