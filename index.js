@@ -103,8 +103,8 @@ try {
         // );
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-            console.log('---------------- Language list promise values ----------------');
-            console.log(values);
+            // console.log('---------------- Language list promise values ----------------');
+            // console.log(values);
 
             let repoLanguagesSet = new Set(Object.keys(values))
             let languagesWithEcosystem = new Set()
@@ -112,7 +112,7 @@ try {
             // Create a list with the languages in the repo that can be scanned for vulnerabilities
             for (language in languagesEcosystems) {
                 console.log(`language: ${ language }`)
-                if(values[language] !== 'undefined')  console.log('Language on the list')
+                if(values[language] !== undefined)  console.log('Language on the list')
             }
 
         }).catch( error => {
