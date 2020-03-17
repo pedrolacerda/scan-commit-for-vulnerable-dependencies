@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const http = require('http')
+const https = require('https')
 const fs = require ('fs')
 
 // [TO-DO] Make it smarter later on
@@ -140,7 +140,7 @@ try {
                     console.log(`Patch: ${file.patch}`)
 
                     const fileXML = fs.createWriteStream(file.filename);
-                    const request = http.get(file.blob_url, function(response) {
+                    const request = https.get(file.blob_url, function(response) {
                         response.pipe(fileXML);
                     });
 
