@@ -118,12 +118,14 @@ try {
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             console.log(values)
-            for (file in values){
-                console.log(`file: ${file}`)
-                // if(file.filename.endsWith("pom.xml")){
-                //     console.log(`Found 'pom.xml'`)
-                // }
-            }
+            values.forEach(function(file){
+                console.log(file)
+                if(file.filename.endsWith("pom.xml")){
+                    console.log(`Found 'pom.xml'`)
+                }
+            })
+                
+
         }).catch( error => {
             core.setFailed(error.message);
             console.log(error)
