@@ -110,6 +110,7 @@ try {
             console.log(`Language Set ${repoLanguagesSet}`)
 
             languageEcosystems.forEach((item) => {
+                console.log(`languageEcosystems items ${item}`)
                 console.log(`repoLanguagesSet.has(item): ${ repoLanguagesSet.has(item) }`)
             })
 
@@ -119,14 +120,14 @@ try {
             }
         );
 
-        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-            // console.log('---------------- PR List promise values');
-            // console.log(values);
-        }).catch( error => {
-            core.setFailed(error.message);
-            console.log(error)
-            }
-        );
+        // getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
+        //     // console.log('---------------- PR List promise values');
+        //     // console.log(values);
+        // }).catch( error => {
+        //     core.setFailed(error.message);
+        //     console.log(error)
+        //     }
+        // );
 
         core.setFailed('Forcing error');
 
