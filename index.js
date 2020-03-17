@@ -61,11 +61,13 @@ async function getVulnerability(package, ecosystem) {
 async function getPrFiles(prNumber, owner, repo) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
-    return await octokit.pulls.listFiles({
+    let files = await octokit.pulls.listFiles({
         owner: owner,
         repo: repo,
         pull_number: prNumber
     })
+
+    return files
 }
 
 /*
