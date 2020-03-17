@@ -23,11 +23,14 @@ async function getVulnerability(vulnerability, ecosystem){
 }
 
 try {
+    const context = JSON.stringify(github.context)
+    console.log(`The event context: ${context}`);
+
     const payload = JSON.stringify(github.context.payload, undefined, 2)
 
     console.log(`The event payload: ${payload}`);
 
-    console.log(`GitHub Token ${core.getInput('GITHUB_TOKEN')}`)
+    console.log(`PR Number ${payload.number}`)
 
     getVulnerability().then(function(values) {
         console.log('Promise values');
