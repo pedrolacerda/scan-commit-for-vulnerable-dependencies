@@ -7,7 +7,7 @@ const glob = require('@actions/glob');
  * @params package(String):   full URI of the package 
  * @params ecosystem(String): ecosystem from the list [RUBYGEMS,NPM,PIP,MAVEN,NUGET,COMPOSER]
  */
-async function getVulnerability(package, ecosystem){
+async function getVulnerability(package, ecosystem) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
     let query = ` 
     query { 
@@ -29,20 +29,9 @@ async function getVulnerability(package, ecosystem){
 }
 
 /*
- * Get a list of files with a specific pattern
- */
-async function getFiles(){
-    let patterns =['**/.xml']
-    let globber = await glob.create(patterns.join('\n'))
-    let files = await globber.glob()
-
-    console.log(`Files that match the patter '**/.xml'\n ${JSON.stringify(files, undefined, 2)}`)
-}
-
-/*
  * Get all files from a PR
  */
-async function getPrFiles(prNumber, owner, repo){
+async function getPrFiles(prNumber, owner, repo) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
     let { data: pullRequest } = await octokit.pulls.listFiles({
@@ -52,6 +41,20 @@ async function getPrFiles(prNumber, owner, repo){
     })
 
     console.log(`Pull Request Data\n ${JSON.stringify(pullRequest, undefined, 2)}`)
+}
+
+/*
+ * Get a list of languages used on the repo
+ */
+async function getLanguageList(owner, repo) {
+    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
+
+    let { data: languageList } = await octokit.repos.listLanguages({
+        owner: owner,
+        repo: repo    
+    })
+
+    console.log(`Repo's Language list\n ${JSON.stringify(languageList, undefined, 2)}`)
 }
 
 try {
@@ -71,7 +74,7 @@ try {
         //     }
         // );
 
-        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
+        getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             console.log('Promise values');
             console.log(values);
         }).catch( error => {
@@ -80,7 +83,7 @@ try {
             }
         );
 
-        getFiles().then(function(values) {
+        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             console.log('Promise values');
             console.log(values);
         }).catch( error => {
