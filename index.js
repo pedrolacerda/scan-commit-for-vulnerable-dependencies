@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 // [TO-DO] Make it smarter later on
-const languageEcosystems = {
+const languagesEcosystems = {
     'Ruby': {
         ecosystem: 'RUBYGEMS',
         file: 'Gemfile'
@@ -94,7 +94,7 @@ try {
         // console.log(`The event payload:\n ${payload}`);
 
         // getVulnerability().then(function(values) {
-        //     console.log('---------------- Promise values');
+        //     console.log('---------------- Promise values ----------------');
         //     console.log(values.securityVulnerabilities.nodes);
         // }).catch( error => {
         //     core.setFailed(error.message);
@@ -103,15 +103,16 @@ try {
         // );
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-            console.log('---------------- Language list promise values');
+            console.log('---------------- Language list promise values ----------------');
             console.log(values);
 
             let repoLanguagesSet = new Set(Object.keys(values))
-            console.log(`Language Set ${repoLanguagesSet}`)
+            let languagesWithEcosystem = new Set()
 
-            for (language in languageEcosystems) {
-                console.log(`languageEcosystems items ${language}`)
-                console.log(`repoLanguagesSet.has(item): ${ repoLanguagesSet.has(language) }`)
+            // Create a list with the languages in the repo that can be scanned for vulnerabilities
+            for (language in languagesEcosystems) {
+                console.log(languagesEcosystems.has(values))
+                if(repoLanguagesSet.has(language))  languagesWithEcosystem.add(language)
             }
 
         }).catch( error => {
