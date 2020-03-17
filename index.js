@@ -145,7 +145,7 @@ try {
                         headers: {
                             'Accept': 'application/vnd.github.antiope-preview+json',
                             'Content-Type': 'application/x-www-form-urlencoded',
-                            'Authorization': core.getInput('GITHUB_TOKEN')
+                            'Authorization': 'Bearer d63e7256194fb5818c949784aa72943a25fccdff'
                         }
                     }
 
