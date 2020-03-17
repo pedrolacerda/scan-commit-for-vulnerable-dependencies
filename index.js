@@ -109,10 +109,10 @@ try {
             let repoLanguagesSet = new Set(Object.keys(values))
             console.log(`Language Set ${repoLanguagesSet}`)
 
-            languageEcosystems.forEach((item) => {
-                console.log(`languageEcosystems items ${item}`)
-                console.log(`repoLanguagesSet.has(item): ${ repoLanguagesSet.has(item) }`)
-            })
+            for (language in languageEcosystems) {
+                console.log(`languageEcosystems items ${language}`)
+                console.log(`repoLanguagesSet.has(item): ${ repoLanguagesSet.has(language) }`)
+            }
 
         }).catch( error => {
             core.setFailed(error.message);
