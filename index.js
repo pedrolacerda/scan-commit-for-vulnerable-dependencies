@@ -107,7 +107,6 @@ try {
                 if(typeof values[language] !== "undefined") {
                     console.log("Language in the ecosystem")
                 }
-
             }
 
         }).catch( error => {
@@ -119,10 +118,7 @@ try {
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             console.log(values)
             values.forEach(function(file){
-                console.log(file)
-                if(file.filename.endsWith("pom.xml")){
-                    console.log(`Found 'pom.xml'`)
-                }
+                console.log(`Filename: ${file.filename}`)
             })
                 
 
