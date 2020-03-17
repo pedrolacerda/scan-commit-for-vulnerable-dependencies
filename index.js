@@ -95,10 +95,10 @@ try {
         // );
         let languagesEcosystemsInPR
 
-        getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
+        getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
-            languagesEcosystemsInPR = languagesEcosystems.filter(language => typeof values[language.language] !== "undefined")
+            languagesEcosystemsInPR = languagesEcosystems.filter(language => typeof languages[language.language] !== "undefined")
             console.log(`languagesEcosystemsInPR: ${languagesEcosystemsInPR}`)
 
         }).catch( error => {
@@ -107,9 +107,9 @@ try {
             }
         );
 
-        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-            console.log(`values api call: ${values}`)
-            values.forEach( function(file) {
+        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then( files => {
+            console.log(`values api call: ${files}`)
+            files.forEach( function(file) {
                 console.log(`Filename: ${file.filename}`)
 
                 //Checks if dependency files were changed
