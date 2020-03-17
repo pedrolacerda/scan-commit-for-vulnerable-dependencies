@@ -112,8 +112,8 @@ try {
             // Create a list with the languages in the repo that can be scanned for vulnerabilities
             for (language in languagesEcosystems) {
                 console.log(`language: ${ language }`)
-                console.log(`values[language]: ${values[language]}`)
-                //if(values[language] !== undefined)  console.log('Language on the list')
+
+                if(typeof values[language] !== "undefined")  console.log('Language on the list')
             }
 
         }).catch( error => {
