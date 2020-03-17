@@ -103,8 +103,6 @@ async function getFileInCommit(owner, repo, path, ref) {
 try {
     let context = github.context
 
-    console.log(context.payload)
-
     if(context.eventName == `pull_request`){
 
         // getVulnerability().then(function(values) {
@@ -121,7 +119,6 @@ try {
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
             languagesEcosystemsInPR = languagesEcosystems.filter(language => typeof languages[language.language] !== "undefined")
-            console.log(`languagesEcosystemsInPR: ${JSON.stringify(languagesEcosystemsInPR, undefined, 2)}`)
 
         }).catch( error => {
             core.setFailed(error.message);
@@ -142,9 +139,9 @@ try {
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
 
-                    const file = fs.createWriteStream(file.filename);
+                    const fileXML = fs.createWriteStream(file.filename);
                     const request = http.get(blob_url, function(response) {
-                        response.pipe(file);
+                        response.pipe(fileXML);
                     });
 
                     let xhttp = new XMLHttpRequest();
