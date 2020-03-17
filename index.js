@@ -36,7 +36,7 @@ async function getFiles(){
     let globber = await glob.create(patterns.join('\n'))
     let files = await globber.glob()
 
-    console.log(files)
+    console.log(`Files that match the patter '**/.xml'\n ${JSON.stringify(files, undefined, 2)}`)
 }
 
 /*
@@ -51,7 +51,7 @@ async function getPrFiles(prNumber, owner, repo){
         pull_number: prNumber
     })
 
-    console.log(`Pull Request Data\n ${pullRequest}`)
+    console.log(`Pull Request Data\n ${JSON.stringify(pullRequest, undefined, 2)}`)
 }
 
 try {
@@ -75,7 +75,7 @@ try {
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             console.log('Promise values');
-            console.log(values.securityVulnerabilities.nodes);
+            console.log(values);
             core.setFailed('Forcing error');
 
         }).catch( error => {
@@ -83,7 +83,7 @@ try {
             console.log(error)
             }
         );
-        
+
     } else {
         core.setFailed(`This action was not triggered by a Pull Request`);
     }
