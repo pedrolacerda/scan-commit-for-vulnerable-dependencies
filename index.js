@@ -80,6 +80,15 @@ try {
             }
         );
 
+        getFiles().then(function(values) {
+            console.log('Promise values');
+            console.log(values);
+        }).catch( error => {
+            core.setFailed(error.message);
+            console.log(error)
+            }
+        );
+
         core.setFailed('Forcing error');
 
     } else {
