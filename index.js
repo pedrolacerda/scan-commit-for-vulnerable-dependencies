@@ -27,13 +27,13 @@ try {
     console.log(`The event name: ${context.eventName}`);
 
     if(context.eventName == `pull_request`){
-        let eventName = github["event_name"];
-        
+        console.log(`PR Number [1] ${context.payload.number}`);
+        console.log(`PR Number [2] ${context.number}`);
+        console.log(`PR Number [3] ${context.base.number}`);
+        console.log(`PR Number [4] ${context.payload.base}`);
+
         const payload = JSON.stringify(github.context.payload, undefined, 2);
-
-        console.log(`The event payload: ${payload}`);
-
-        console.log(`PR Number ${context.number}`);
+        console.log(`The event payload:\n ${payload}`);
 
         getVulnerability().then(function(values) {
             console.log('Promise values');
