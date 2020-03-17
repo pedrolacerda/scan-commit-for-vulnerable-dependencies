@@ -116,16 +116,10 @@ try {
             
             files.forEach( function(file) {
                 console.log(`Filename: ${file.filename}`)
-
+                
                 //Checks if dependency files were changed
-                for (ecosytemFile in languagesEcosystemsInPR){
-                    console.log(`ecosystem.file: ${ecosytemFile}`)
-                    console.log(`file.filename: ${file.filename}`)
-                    if(ecosytemFile[0] == file.filename) {
-                        console.log(`The dependency file ${file.filename} was changed`)
-                    }
-                }
-                console.log(`-----------------------------------------------`)
+                var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.filename == file.filename)
+                console.log(`The dependency file ${dependencyFileName} was changed`)
             })
                 
 
