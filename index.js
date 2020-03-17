@@ -45,7 +45,7 @@ async function getFiles(){
 async function getPrFiles(prNumber, owner, repo){
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
-    let { data: pullRequest } = await octokit.pulls.get({
+    let { data: pullRequest } = await octokit.pulls.listFiles({
         owner: owner,
         repo: repo,
         pull_number: prNumber
@@ -62,14 +62,14 @@ try {
         const payload = JSON.stringify(github.context.payload, undefined, 2);
         // console.log(`The event payload:\n ${payload}`);
 
-        getVulnerability().then(function(values) {
-            console.log('Promise values');
-            console.log(values.securityVulnerabilities.nodes);
-        }).catch( error => {
-            core.setFailed(error.message);
-            console.log(error)
-            }
-        );
+        // getVulnerability().then(function(values) {
+        //     console.log('Promise values');
+        //     console.log(values.securityVulnerabilities.nodes);
+        // }).catch( error => {
+        //     core.setFailed(error.message);
+        //     console.log(error)
+        //     }
+        // );
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
             console.log('Promise values');
