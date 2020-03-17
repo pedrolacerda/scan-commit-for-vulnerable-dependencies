@@ -2,32 +2,32 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 // [TO-DO] Make it smarter later on
-const languagesEcosystems = {
-    'Ruby': {
+const languagesEcosystems = [
+    {   language: 'Ruby',
         ecosystem: 'RUBYGEMS',
         file: 'Gemfile'
     },
-    'Javascript': {
+    {   language: 'Javascript',
         ecosystem: 'NPM',
         file: 'package.json'
     },
-    'Python': {
+    {   language: 'Python',
         ecosystem: 'PIP',
         file: 'requirements.txt'
     },
-    'Java': {
+    {   language: 'Java',
         ecosystem: 'MAVEN',
         file: 'pom.xml'
     },
-    'C#': {
+    {   language: 'C#',
         ecosystem: 'NUGET',
         file: '.nuspec'
     },
-    'PHP': {
+    {   language: 'PHP',
         ecosystem: 'COMPOSER',
         file: 'composer.json'
     }
-}
+]
 
 /*
  * Get a specific vulerability
@@ -88,8 +88,6 @@ try {
     let context = github.context
 
     if(context.eventName == `pull_request`){
-        const payload = JSON.stringify(github.context.payload, undefined, 2);
-        // console.log(`The event payload:\n ${payload}`);
 
         // getVulnerability().then(function(values) {
         //     console.log('---------------- Promise values ----------------');
@@ -102,23 +100,35 @@ try {
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
 
-            // Checks if the PR has commits with languages in the ecosystem
-            for (language in languagesEcosystems) {
-                if(typeof values[language] !== "undefined") {
-                    console.log("Language in the ecosystem")
-                }
-            }
+            let languagesInPR = languagesEcosystems.filter(language => typeof values[language] !== "undefined")
+            console.log(`Languages in PR with ecosystem: ${languagesInPR}`)
+
+            // // Checks if the PR has commits with languages in the ecosystem
+            // // and creates a list with them
+            // for (language in languagesEcosystems) {
+            //     if(typeof values[language] !== "undefined") {
+            //         console.log("Language in the ecosystem")
+            //         languagesInPR.add(language)
+            //     }
+            // }
 
         }).catch( error => {
             core.setFailed(error.message);
             console.log(error)
             }
         );
+        
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then(function(values) {
-            console.log(values)
             values.forEach(function(file){
                 console.log(`Filename: ${file.filename}`)
+
+                //Checks if dependency files were changed
+                for (ecosytemFile in languagesEcosystems){
+                    if(ecosytemFile.file == filename) {
+
+                    }
+                }
             })
                 
 
