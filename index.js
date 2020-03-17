@@ -139,15 +139,18 @@ try {
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
 
-                    const options = new URL(file.blob_url)
+                    https.get('https://encrypted.google.com/', (res) => {
+                    console.log('statusCode:', res.statusCode);
+                    console.log('headers:', res.headers);
 
-                    const req = https.request(options, (res) => {
-                        
-                    })
-                    req.on('error', (e) => {
-                        core.setFailed(e.message)
-                    })
-                    req.end()
+                    res.on('data', (d) => {
+                        process.stdout.write(d);
+                    });
+
+                    }).on('error', (e) => {
+                        core.setFailed(e);
+                        console.error(e);
+                    });
                 }
             })
                 
