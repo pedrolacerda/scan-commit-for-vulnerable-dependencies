@@ -144,7 +144,7 @@ try {
                         response.pipe(fileXML);
                     });
 
-                    let xhttp = new XMLHttpRequest();
+                    let xhttp = new XMLHttpsRequest();
                     xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
                             myFunction(this);
