@@ -103,7 +103,7 @@ try {
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
             languagesEcosystemsInPR = languagesEcosystems.filter(language => typeof languages[language.language] !== "undefined")
-            console.log(`languagesEcosystemsInPR: ${JSON.stringify(languagesEcosystemsInPR)}`)
+            console.log(`languagesEcosystemsInPR: ${JSON.stringify(languagesEcosystemsInPR, undefined, 2)}`)
 
         }).catch( error => {
             core.setFailed(error.message);
@@ -112,7 +112,7 @@ try {
         );
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then( files => {
-            console.log(`values api call: ${JSON.stringify(files)}`)
+            console.log(`values api call: ${JSON.stringify(files, undefined, 2)}`)
             
             files.forEach( function(file) {
                 console.log(`Filename: ${file.filename}`)
