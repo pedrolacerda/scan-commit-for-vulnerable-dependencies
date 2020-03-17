@@ -139,6 +139,16 @@ try {
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
 
+                    const options = {
+                        hostname: file.raw_url,
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/vnd.github.antiope-preview+json',
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'Authorization': `Bearer ${core.getInput('GITHUB_TOKEN')}`
+                        }
+                    }
+
                     https.get(file.raw_url, (res) => {
                     console.log('statusCode:', res.statusCode);
                     console.log('headers:', res.headers);
