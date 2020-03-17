@@ -1,5 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const http = require('http')
+const fs = require ('fs')
 
 // [TO-DO] Make it smarter later on
 const languagesEcosystems = [
@@ -84,8 +86,24 @@ async function getLanguageList(owner, repo) {
     return languageList
 }
 
+/*
+ * Get the content of a file
+ */
+async function getFileInCommit(owner, repo, path, ref) {
+    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
+
+    let {data: fileInCommity } =  await octokit.repos.listLanguages({
+        owner: owner,
+        repo: repo    
+    })
+
+    return fileInCommity
+}
+
 try {
     let context = github.context
+
+    console.log(context.payload)
 
     if(context.eventName == `pull_request`){
 
@@ -120,9 +138,29 @@ try {
                 var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file === file.filename)
 
                 if(typeof dependencyFileName !== "undefined") {
-                    console.log(`The dependency file ${file.filename} was changed`)
+                    console.log(`The dependency file <b> ${file.filename} </b> was changed`)
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
+
+                    const file = fs.createWriteStream(file.filename);
+                    const request = http.get(blob_url, function(response) {
+                        response.pipe(file);
+                    });
+
+                    let xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            myFunction(this);
+                        }
+                    };
+                    xhttp.open("GET", file.filename, true);
+                    xhttp.send();
+
+                    function myFunction(xml) {
+                        var xmlDoc = xml.responseXML;
+                        var print = xmlDoc.getElementsByTagName("dependencies");
+                        console.log(print)
+                    }
                 }
             })
                 
