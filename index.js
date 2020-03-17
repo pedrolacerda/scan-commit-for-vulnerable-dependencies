@@ -35,6 +35,8 @@ try {
         let globber = await glob.create(patterns.join('\n'))
         let files = await globber.glob()
 
+        console.log(files)
+
         getVulnerability().then(function(values) {
             console.log('Promise values');
             console.log(values.securityVulnerabilities.nodes);
