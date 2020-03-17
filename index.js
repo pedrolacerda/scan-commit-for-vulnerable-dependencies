@@ -139,25 +139,15 @@ try {
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
 
-                    const fileXML = fs.createWriteStream(file.filename);
-                    const request = https.get(file.blob_url, function(response) {
-                        response.pipe(fileXML);
-                    });
+                    const options = new URL(file.blob_url)
 
-                    let xhttp = new XMLHttpsRequest();
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            myFunction(this);
-                        }
-                    };
-                    xhttp.open("GET", file.filename, true);
-                    xhttp.send();
-
-                    function myFunction(xml) {
-                        var xmlDoc = xml.responseXML;
-                        var print = xmlDoc.getElementsByTagName("dependencies");
-                        console.log(print)
-                    }
+                    const req = https.request(options, (res) => {
+                        
+                    })
+                    req.on('error', (e) => {
+                        core.setFailed(e.message)
+                    })
+                    req.end()
                 }
             })
                 
