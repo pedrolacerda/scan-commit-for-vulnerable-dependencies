@@ -151,7 +151,7 @@ try {
                                 //console.log(groupId[i])
                                 //console.log(`Library [${i}]: ${groupId[i]}:${groupId[i].nextSibling} - version:${groupId[i].nextSibling.nextSibling}`)
                                 console.log(`Library [${i}]: ${(groupId[i])}\n`)
-                                console.log(`Keys: ${Object.keys(groupId[i])}\n`)
+                                console.log(`Keys: ${groupId[i].nextSibling}\n`)
                             }
                         })
                         .catch(error => core.setFailed(error.message));
