@@ -140,7 +140,7 @@ try {
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
                             console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
-                            var xmlDoc = parser.parseFromString(fileChanged)
+                            var xmlDoc = parser.parseFromString(fileChanged,'text/xml')
                             console.log(xmlDoc.getElementsByName("groupId"))
                         })
 
