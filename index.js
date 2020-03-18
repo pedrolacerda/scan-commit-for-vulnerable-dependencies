@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const parser = new xml2js.Parser({ attrkey: "ATTR" });
+const xml2js = require('xml2js');
 
 // [TO-DO] Make it smarter later on
 const languagesEcosystems = [
@@ -147,7 +147,7 @@ try {
 
                     getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
                         // console.log(`fileChanged: ${fileChanged}`)
-                        
+                        let parser = new xml2js.Parser()
                         parser.parseString(fileChanged, function(error, result) {
                             if(error === null) {
                                 console.log(result);
