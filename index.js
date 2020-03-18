@@ -145,7 +145,7 @@ try {
                             
                             // These are the two tags that add packages to the repo
                             let dependencies = xmlDoc.getElementsByTagName('dependency')
-                            let plugin = xmlDoc.getElementsByTagName('plugin')
+                            let plugin = xmlDoc.getElementsByTagName('artifactId')
 
                             for(i = 0; i < dependencies["$$length"]; i++) {
                                 console.log(dependencies[i])
