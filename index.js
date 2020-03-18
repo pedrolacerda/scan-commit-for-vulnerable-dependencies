@@ -144,9 +144,9 @@ try {
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
 
-                            let formattedXml = format(xmlDoc.rawHTML)
-                            console.log(`formattedXml:\n ${formattedXml}`)
-                            console.log(`elementsByName:\n ${parser.parseFromString(formattedXml).getElementsByName("groupId")}`)
+                            // let formattedXml = format(xmlDoc.rawHTML)
+                            // console.log(`formattedXml:\n ${formattedXml}`)
+                            console.log(`xmlDoc:\n ${xmlDoc}`)
                         })
                     }
                 } else {
