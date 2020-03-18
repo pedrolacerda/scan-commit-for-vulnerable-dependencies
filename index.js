@@ -145,7 +145,7 @@ try {
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
 
-                            console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('artifactId')}`)
+                            console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('dependency')}`)
                             console.log(`=================================================================`)
                             console.log(`xmlDoc.body:\n ${xmlDoc.body}`)
                         })
