@@ -151,6 +151,8 @@ try {
                         })
 
                     }
+                } else {
+                    core.setFailed("We can check for vulnerabilities for any of the languages of this repository")
                 }
                
             })
