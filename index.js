@@ -147,7 +147,7 @@ try {
 
                             console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('dependency')}`)
                             console.log(`=================================================================`)
-                            console.log(`xmlDoc.body:\n ${xmlDoc.plugins}`)
+                            console.log(`xmlDoc.body:\n ${xmlDoc.getElementsByTagName('plugin')}`)
                         })
                         .catch(error => core.setFailed(error.message));
                     }
