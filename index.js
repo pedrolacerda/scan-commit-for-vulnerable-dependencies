@@ -143,9 +143,11 @@ try {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
-                            console.log(`xmlDoc:\n ${JSON.stringify(xmlDoc.rawHTML, undefined, 2)}`)
+
                             let formattedXml = format(xmlDoc.rawHTML)
-                            console.log(`formattedXml:\n ${formattedXml}`)
+                            xmlDoc = xmlDoc.rawHTML
+                            //console.log(`formattedXml:\n ${formattedXml}`)
+                            console.log(`elementsByName:\n ${xmlDoc.getElementsByTagName("groupId")}`)
                         })
                     }
                 } else {
