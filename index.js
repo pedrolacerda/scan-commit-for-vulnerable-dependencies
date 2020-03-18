@@ -144,16 +144,12 @@ try {
                             let xmlDoc = parser.parseFromString(fileChanged)
                             
                             // These are the two tags that add packages to the repo
-                            let dependencies = xmlDoc.getElementsByTagName('groupId')
-                            let plugin = xmlDoc.getElementsByTagName('artifactId')
-
-                            for(i = 0; i < dependencies["$$length"]; i++) {
-                                console.log(dependencies[i])
-                            }
-
-                            console.log(`=================================================================`)
-                            for(i = 0; i < plugin["$$length"]; i++) {
-                                console.log(plugin[i])
+                            let groupId = xmlDoc.getElementsByTagName('groupId')
+                            // let artifactId = xmlDoc.getElementsByTagName('artifactId')
+                            
+                            for(i = 0; i < groupId["$$length"]; i++) {
+                                //console.log(groupId[i])
+                                console.log(`Library [${i}]: ${groupId[i].innerHTML}:${groupId[i].nextElementSibling.innerHTML} - version: ${groupId[i].nextElementSibling.nextElementSibling.innerHTML}`)
                             }
                         })
                         .catch(error => core.setFailed(error.message));
