@@ -148,7 +148,7 @@ try {
 
                             // let formattedXml = format(xmlDoc.rawHTML)
                             // console.log(`formattedXml:\n ${formattedXml}`)
-                            console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('dependencies')}`)
+                            console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('groupId')}`)
                         })
                         .catch(error => core.setFailed(error.message));
                     }
