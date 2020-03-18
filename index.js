@@ -145,8 +145,7 @@ try {
                             let xmlDoc = parser.parseFromString(fileChanged)
 
                             let formattedXml = format(xmlDoc.rawHTML)
-                            xmlDoc = xmlDoc.rawHTML
-                            //console.log(`formattedXml:\n ${formattedXml}`)
+                            console.log(`formattedXml:\n ${formattedXml}`)
                             console.log(`elementsByName:\n ${xmlDoc.getElementsByName("groupId")}`)
                         })
                     }
