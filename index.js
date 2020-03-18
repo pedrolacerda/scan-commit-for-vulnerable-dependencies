@@ -150,7 +150,7 @@ try {
                             for(i = 0; i < groupId["$$length"]; i++) {
                                 //console.log(groupId[i])
                                 //console.log(`Library [${i}]: ${groupId[i]}:${groupId[i].nextSibling} - version:${groupId[i].nextSibling.nextSibling}`)
-                                console.log(`Library [${i}]: ${groupId[i]}:${groupId[i].nextSibling}`)
+                                console.log(`Library [${i}]: ${groupId[i]}:${groupId[i].nextSibling()}`)
                             }
                         })
                         .catch(error => core.setFailed(error.message));
