@@ -111,7 +111,7 @@ try {
         let vulerabilitySet = new Set();
         let languagesEcosystemsInPR
 
-        getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
+        await getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
             languagesEcosystemsInPR = languagesEcosystems.filter(language => typeof languages[language.language] !== "undefined")
@@ -122,7 +122,7 @@ try {
             }
         );
 
-        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then( files => {
+        await getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then( files => {
             // console.log(`PR Files\n: ${JSON.stringify(files, undefined, 2)}`)
             
             files.forEach( function(file) {
@@ -137,7 +137,7 @@ try {
                         console.log(`The dependency file ${file.filename} was changed`)
 
                         //Get file content to scan each vulnerability
-                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
+                        await getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new xml2js.Parser()
                             parser.parseString(fileChanged, function(error, result) {
