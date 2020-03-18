@@ -150,7 +150,9 @@ try {
                         let parser = new xml2js.Parser()
                         parser.parseString(fileChanged, function(error, result) {
                             if(error === null) {
-                                console.log(result);
+                                
+                                console.log(JSON.stringify(result));
+
                             }
                             else {
                                 console.log(error);
