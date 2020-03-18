@@ -114,6 +114,7 @@ try {
         let languagesEcosystemsInPR
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
+
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
             languagesEcosystemsInPR = languagesEcosystems.filter(language => typeof languages[language.language] !== "undefined")
@@ -125,9 +126,7 @@ try {
         );
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name)
-        .then( async files => {
-            // console.log(`PR Files\n: ${JSON.stringify(files, undefined, 2)}`)
-            
+        .then( async files => {            
             files.forEach( file => {
                 
                 //Needs to have at least one language that GitHub scans vulnerabilities
@@ -146,9 +145,9 @@ try {
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
 
-                            // let formattedXml = format(xmlDoc.rawHTML)
-                            // console.log(`formattedXml:\n ${formattedXml}`)
                             console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('artifactId')}`)
+                            console.log(`=================================================================`)
+                            console.log(`xmlDoc.body:\n ${xmlDoc.body}`)
                         })
                         .catch(error => core.setFailed(error.message));
                     }
