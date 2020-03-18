@@ -137,7 +137,7 @@ try {
                         console.log(`The dependency file ${file.filename} was changed`)
 
                         //Get file content to scan each vulnerability
-                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
+                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( async fileChanged => {
                             console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
                             var xmlDoc = parser.parseFromString(fileChanged,'text/xml')
