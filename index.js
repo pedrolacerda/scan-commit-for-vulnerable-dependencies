@@ -142,10 +142,10 @@ try {
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( async fileChanged => {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
-                            let xmlDoc = parser.parseFromString(fileChanged)
-                            let formattedXml = format(fileChanged)
-                            //console.log(`formattedXml:\n ${formattedXml}`)
+                            let xmlDoc = parser.parseFromString(fileChanged.rawHTML)
                             console.log(`xmlDoc:\b ${JSON.stringify(xmlDoc, undefined, 2)}`)
+                            let formattedXml = format(fileChanged)
+                            console.log(`formattedXml:\n ${formattedXml.rawHTML}`)
                         })
 
                     }
