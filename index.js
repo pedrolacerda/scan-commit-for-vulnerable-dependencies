@@ -143,12 +143,11 @@ try {
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
 
-                            console.log(`xmlDoc.dependencies.nodeType: ${typeof xmlDoc.getElementsByTagName('dependency').length}`)
+                            console.log(`xmlDoc.dependencies.nodeType: ${Object.keys(xmlDoc.getElementsByTagName('dependency'))}`)
                             console.log(`=================================================================`)
-                            console.log(`xmlDoc.plugins:.nodeType:     ${xmlDoc.getElementsByTagName('plugin').length}`)
+                            console.log(`xmlDoc.plugins:.nodeType:     ${Object.keys(xmlDoc.getElementsByTagName('plugin'))}`)
                         })
                         .catch(error => core.setFailed(error.message));
-                        //las;jdf lkasjd fl;kasjdfl kasj d;lkfjlsdkf
                     }
                 } else {
                     core.setFailed("We can check for vulnerabilities for any of the languages of this repository")
