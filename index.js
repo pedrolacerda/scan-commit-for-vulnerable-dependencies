@@ -143,7 +143,7 @@ try {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged.rawHTML)
-                            console.log(`xmlDoc:\b ${JSON.stringify(xmlDoc, undefined, 2)}`)
+                            console.log(`xmlDoc:\n ${JSON.stringify(xmlDoc, undefined, 2)}`)
                             let formattedXml = format(fileChanged)
                             console.log(`formattedXml:\n ${formattedXml.rawHTML}`)
                         })
