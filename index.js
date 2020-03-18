@@ -143,11 +143,10 @@ try {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
-                            console.log(`xmlDoc:\n ${JSON.stringify(xmlDoc, undefined, 2)}`)
-                            let formattedXml = format(fileChanged)
-                            console.log(`formattedXml:\n ${formattedXml["rawHTML"]}`)
+                            console.log(`xmlDoc:\n ${JSON.stringify(fileChanged.rawHTML, undefined, 2)}`)
+                            let formattedXml = format(fileChanged.rawHTML)
+                            console.log(`formattedXml:\n ${formattedXml}`)
                         })
-
                     }
                 } else {
                     core.setFailed("We can check for vulnerabilities for any of the languages of this repository")
