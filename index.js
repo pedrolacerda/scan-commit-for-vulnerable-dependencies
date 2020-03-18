@@ -143,9 +143,9 @@ try {
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
 
-                            console.log(`xmlDoc.dependencies.nodeType: ${typeof xmlDoc.getElementsByTagName('dependency').nodeType}`)
+                            console.log(`xmlDoc.dependencies.nodeType: ${typeof xmlDoc.getElementsByTagName('dependency').length}`)
                             console.log(`=================================================================`)
-                            console.log(`xmlDoc.plugins:.nodeType:     ${xmlDoc.getElementsByTagName('plugin').nodeType}`)
+                            console.log(`xmlDoc.plugins:.nodeType:     ${xmlDoc.getElementsByTagName('plugin').length}`)
                         })
                         .catch(error => core.setFailed(error.message));
                         //las;jdf lkasjd fl;kasjdfl kasj d;lkfjlsdkf
