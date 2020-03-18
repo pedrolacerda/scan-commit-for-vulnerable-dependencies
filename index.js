@@ -92,9 +92,11 @@ async function getLanguageList(owner, repo) {
 async function getFileInCommit(owner, repo, path, ref) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
     
-    let {data: fileInCommity } =  await octokit.repos.listLanguages({
+    let {data: fileInCommity } =  await octokit.repos.getContents({
         owner: owner,
-        repo: repo    
+        repo: repo,
+        path: path,
+        ref: ref    
     })
 
     return fileInCommity
@@ -139,6 +141,10 @@ try {
                     console.log(`The dependency file ${file.filename} was changed`)
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
+
+                    let fileChanged = getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, file.sha)
+
+                    console.log(`fileChanged: ${fileChanged}`)
                 }
             })
                 
