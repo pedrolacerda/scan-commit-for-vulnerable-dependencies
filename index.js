@@ -1,8 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const DOMParser = require('xmldom').DOMParser;
-const format = require('xml-formatter');
-
 
 // [TO-DO] Make it smarter later on
 const languagesEcosystems = [
@@ -145,9 +143,9 @@ try {
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
 
-                            console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('dependency')}`)
+                            console.log(`xmlDoc.dependencies:\n ${typeof xmlDoc.getElementsByTagName('dependency')}`)
                             console.log(`=================================================================`)
-                            console.log(`xmlDoc.body:\n ${xmlDoc.getElementsByTagName('plugin')}`)
+                            console.log(`xmlDoc.plugins:\n ${typeof xmlDoc.getElementsByTagName('plugin')}`)
                         })
                         .catch(error => core.setFailed(error.message));
                     }

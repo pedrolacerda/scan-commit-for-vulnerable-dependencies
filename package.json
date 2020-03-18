@@ -23,7 +23,6 @@
     "@octokit/graphql": "^4.3.1",
     "dom-parser": "^0.1.6",
     "http": "0.0.0",
-    "xml-formatter": "^1.2.0",
     "xmldom": "^0.3.0"
   },
   "devDependencies": {}
