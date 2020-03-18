@@ -91,7 +91,7 @@ async function getLanguageList(owner, repo) {
  */
 async function getFileInCommit(owner, repo, path, ref) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
-
+    
     let {data: fileInCommity } =  await octokit.repos.listLanguages({
         owner: owner,
         repo: repo    
@@ -134,33 +134,18 @@ try {
                 //Checks if dependency files were changed
                 var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file === file.filename)
 
+                languagesEcosystemsInPR.find(dependencyFile => {
+                    console.log(`dependencyFile.file.endsWith(file.filename): ${dependencyFile.file.endsWith(file.filename)}`)
+                })
+
                 if(typeof dependencyFileName !== "undefined") {
-                    console.log(`The dependency file <b> ${file.filename} </b> was changed`)
+                    console.log(`The dependency file ${file.filename} was changed`)
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
 
-                    const options = {
-                        hostname: 'https://raw.githubusercontent.com/octodemo/demo-pedrolacerda/master/pom.xml?token=AAEUWNGNTEQY5YPYGQJMISC6PKJJU',
-                        method: 'GET',
-                        headers: {
-                            'Accept': 'application/vnd.github.antiope-preview+json',
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'Authorization': 'Bearer d63e7256194fb5818c949784aa72943a25fccdff'
-                        }
-                    }
+                    
 
-                    https.get(file.raw_url, (res) => {
-                    console.log('statusCode:', res.statusCode);
-                    console.log('headers:', res.headers);
-
-                    res.on('data', (d) => {
-                        process.stdout.write(d);
-                    });
-
-                    }).on('error', (e) => {
-                        core.setFailed(e);
-                        console.error(e);
-                    });
+                    
                 }
             })
                 
