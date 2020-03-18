@@ -149,7 +149,8 @@ try {
                             
                             for(i = 0; i < groupId["$$length"]; i++) {
                                 //console.log(groupId[i])
-                                console.log(`Library [${i}]: ${groupId[i].innerHTML}:${groupId[i].nextElementSibling.innerHTML} - version: ${groupId[i].nextElementSibling.nextElementSibling.innerHTML}`)
+                                //console.log(`Library [${i}]: ${groupId[i].innerHTML}:${groupId[i].nextElementSibling.innerHTML} - version: ${groupId[i].nextElementSibling.nextElementSibling.innerHTML}`)
+                                console.log(`Library [${i}]: ${groupId[i].innerHTML}:`)
                             }
                         })
                         .catch(error => core.setFailed(error.message));
