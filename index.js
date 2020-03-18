@@ -1,7 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const https = require('https')
-const fs = require ('fs')
+const parser = new xml2js.Parser({ attrkey: "ATTR" });
 
 // [TO-DO] Make it smarter later on
 const languagesEcosystems = [
@@ -107,9 +106,9 @@ async function getFileInCommit(owner, repo, path, ref) {
 
 try {
     let context = github.context
-    console.log(github.context.payload)
 
     if(context.eventName == `pull_request`){
+        let vulerabilitySet = new Set()
 
         // getVulnerability().then(function(values) {
         //     console.log('---------------- Promise values ----------------');
@@ -147,7 +146,16 @@ try {
                     console.log(`Patch: ${file.patch}`)
 
                     getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
-                        console.log(`fileChanged: ${fileChanged}`)
+                        // console.log(`fileChanged: ${fileChanged}`)
+                        
+                        parser.parseString(fileChanged, function(error, result) {
+                            if(error === null) {
+                                console.log(result);
+                            }
+                            else {
+                                console.log(error);
+                            }
+                        });
                     })
 
                 }
