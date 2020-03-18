@@ -104,6 +104,7 @@ async function getFileInCommit(owner, repo, path, ref) {
 
 try {
     let context = github.context
+    console.log(github.context.payload)
 
     if(context.eventName == `pull_request`){
 
@@ -129,7 +130,7 @@ try {
         );
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then( files => {
-            console.log(`PR Files\n: ${JSON.stringify(files, undefined, 2)}`)
+            // console.log(`PR Files\n: ${JSON.stringify(files, undefined, 2)}`)
             
             files.forEach( function(file) {
                 
