@@ -148,7 +148,7 @@ try {
 
                             // let formattedXml = format(xmlDoc.rawHTML)
                             // console.log(`formattedXml:\n ${formattedXml}`)
-                            console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('project')}`)
+                            console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('dependencies')}`)
                         })
                         .catch(error => core.setFailed(error.message));
                     }
