@@ -123,9 +123,9 @@ try {
         );
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then( async files => {
-            console.log(`PR Files\n: ${JSON.stringify(files, undefined, 2)}`)
+            // console.log(`PR Files\n: ${JSON.stringify(files, undefined, 2)}`)
             
-            files.forEach( function(file) {
+            files.forEach( file => {
                 
                 //Needs to have at least one language that GitHub scans vulnerabilities
                 if(typeof languagesEcosystemsInPR !== 'undefined'){
@@ -139,15 +139,9 @@ try {
                         //Get file content to scan each vulnerability
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
                             // console.log(`fileChanged: ${fileChanged}`)
-                            let parser = new xml2js.Parser()
-                            parser.parseString(fileChanged, function(error, result) {
-                                if(error === null) {
-                                    console.log(JSON.stringify(result, undefined, 2));
-                                }
-                                else {
-                                    console.log(error);
-                                }
-                            });
+                            let parser = new DOMParser()
+                            var xmlDoc = parser.parseFromString(fileChanged, 'text/xml')
+                            console.log(xmlDoc.getElementsByName("groupId"))
                         })
 
                     }
