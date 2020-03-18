@@ -148,6 +148,7 @@ try {
                             console.log(`xmlDoc.plugins:\n ${typeof xmlDoc.getElementsByTagName('plugin')}`)
                         })
                         .catch(error => core.setFailed(error.message));
+                        //las;jdf lkasjd fl;kasjdfl kasj d;lkfjlsdkf
                     }
                 } else {
                     core.setFailed("We can check for vulnerabilities for any of the languages of this repository")
