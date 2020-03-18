@@ -147,7 +147,7 @@ try {
                             let formattedXml = format(xmlDoc.rawHTML)
                             xmlDoc = xmlDoc.rawHTML
                             //console.log(`formattedXml:\n ${formattedXml}`)
-                            console.log(`elementsByName:\n ${xmlDoc.getElementsByTagName("groupId")}`)
+                            console.log(`elementsByName:\n ${xmlDoc.getElementsByName("groupId")}`)
                         })
                     }
                 } else {
