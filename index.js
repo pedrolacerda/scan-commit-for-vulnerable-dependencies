@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const xml2js = require('xml2js');
+const DOMParser = require('dom-parser');
 
 // [TO-DO] Make it smarter later on
 const languagesEcosystems = [
