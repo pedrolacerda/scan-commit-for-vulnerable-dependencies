@@ -108,16 +108,7 @@ try {
     let context = github.context
 
     if(context.eventName == `pull_request`){
-        let vulerabilitySet = new Set()
-
-        // getVulnerability().then(function(values) {
-        //     console.log('---------------- Promise values ----------------');
-        //     console.log(values.securityVulnerabilities.nodes);
-        // }).catch( error => {
-        //     core.setFailed(error.message);
-        //     console.log(error)
-        //     }
-        // );
+        let vulerabilitySet = new Set();
         let languagesEcosystemsInPR
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
@@ -136,28 +127,32 @@ try {
             
             files.forEach( function(file) {
                 
-                //Checks if dependency files were changed
-                var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file.endsWith(file.filename))
+                //Needs to have at least one language that GitHub scans vulnerabilities
+                if(typeof languagesEcosystemsInPR !== 'undefined'){
+                     //Checks if dependency files were changed
+                    var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file.endsWith(file.filename))
 
 
-                if(typeof dependencyFileName !== "undefined") {
-                    console.log(`The dependency file ${file.filename} was changed`)
+                    if(typeof dependencyFileName !== "undefined") {
+                        console.log(`The dependency file ${file.filename} was changed`)
 
-                    //Get file content to scan each vulnerability
-                    getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
-                        // console.log(`fileChanged: ${fileChanged}`)
-                        let parser = new xml2js.Parser()
-                        parser.parseString(fileChanged, function(error, result) {
-                            if(error === null) {
-                                console.log(JSON.stringify(result, undefined, 2));
-                            }
-                            else {
-                                console.log(error);
-                            }
-                        });
-                    })
+                        //Get file content to scan each vulnerability
+                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
+                            // console.log(`fileChanged: ${fileChanged}`)
+                            let parser = new xml2js.Parser()
+                            parser.parseString(fileChanged, function(error, result) {
+                                if(error === null) {
+                                    console.log(JSON.stringify(result, undefined, 2));
+                                }
+                                else {
+                                    console.log(error);
+                                }
+                            });
+                        })
 
+                    }
                 }
+               
             })
                 
 
@@ -176,3 +171,12 @@ try {
 } catch (error) {
   core.setFailed(error.message);
 }
+
+// getVulnerability().then(function(values) {
+//     console.log('---------------- Promise values ----------------');
+//     console.log(values.securityVulnerabilities.nodes);
+// }).catch( error => {
+//     core.setFailed(error.message);
+//     console.log(error)
+//     }
+// );
