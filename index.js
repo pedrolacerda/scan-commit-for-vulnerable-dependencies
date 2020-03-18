@@ -142,17 +142,14 @@ try {
 
                 if(typeof dependencyFileName !== "undefined") {
                     console.log(`The dependency file ${file.filename} was changed`)
-                    console.log(`Commit sha: ${file.sha}`)
-                    console.log(`Patch: ${file.patch}`)
 
+                    //Get file content to scan each vulnerability
                     getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
                         // console.log(`fileChanged: ${fileChanged}`)
                         let parser = new xml2js.Parser()
                         parser.parseString(fileChanged, function(error, result) {
                             if(error === null) {
-                                
-                                console.log(JSON.stringify(result));
-
+                                console.log(JSON.stringify(result.dependencies), undefined, 2);
                             }
                             else {
                                 console.log(error);
