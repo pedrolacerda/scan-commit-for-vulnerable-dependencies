@@ -141,7 +141,7 @@ try {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
                             var xmlDoc = parser.parseFromString(fileChanged)
-                            console.log(xmlDoc.getElementsByTagName("groupId"))
+                            console.log(xmlDoc)
                         })
 
                     }
