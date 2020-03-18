@@ -151,8 +151,8 @@ try {
                                 //console.log(groupId[i])
                                 //console.log(`Library [${i}]: ${groupId[i]}:${groupId[i].nextSibling} - version:${groupId[i].nextSibling.nextSibling}`)
                                 console.log(`Library [${i}]: ${(groupId[i])}\n`)
-                                console.log(`Não faz sentido: ${groupId[i][0]}\n`)
-                                console.log(`Vai dar erro: ${groupId[i]['nextSibling']}\n`)
+                                console.log(`Não faz sentido: ${groupId[i][1]}\n`)
+                                console.log(`Vai dar erro: ${groupId[i]['childNodes']}\n`)
                             }
                         })
                         .catch(error => core.setFailed(error.message));
