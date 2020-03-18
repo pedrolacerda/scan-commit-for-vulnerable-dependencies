@@ -96,7 +96,10 @@ async function getFileInCommit(owner, repo, path, ref) {
         owner: owner,
         repo: repo,
         path: path,
-        ref: ref    
+        ref: ref,
+        mediaType: {
+            format: 'raw'
+        }
     })
 
     return fileInCommity
