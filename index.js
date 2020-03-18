@@ -143,9 +143,10 @@ try {
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
 
-                    let fileChanged = getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref)
+                    getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
+                        console.log(`fileChanged: ${fileChanged}`)
+                    })
 
-                    console.log(`fileChanged: ${fileChanged}`)
                 }
             })
                 
