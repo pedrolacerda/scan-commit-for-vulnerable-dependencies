@@ -148,8 +148,7 @@ try {
 
                             // let formattedXml = format(xmlDoc.rawHTML)
                             // console.log(`formattedXml:\n ${formattedXml}`)
-                            // console.log(`xmlDoc:\n ${JSON.stringify(xmlDoc, undefined, 2)}`)
-                            console.log(`xmlDoc:\n ${xmlDoc}`)
+                            console.log(`xmlDoc:\n ${xmlDoc.getElementsByTagName('project')}`)
                         })
                         .catch(error => core.setFailed(error.message));
                     }
