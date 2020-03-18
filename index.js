@@ -1,6 +1,8 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const DOMParser = require('dom-parser');
+const format = require('xml-formatter');
+
 
 // [TO-DO] Make it smarter later on
 const languagesEcosystems = [
@@ -140,8 +142,10 @@ try {
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( async fileChanged => {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
-                            var xmlDoc = parser.parseFromString(fileChanged)
-                            console.log(xmlDoc)
+                            let xmlDoc = parser.parseFromString(fileChanged)
+                            let formattedXml = format(fileChanged)
+                            console.log(`formattedXml:\n ${formattedXml}`)
+                            console.log(`xmlDoc:\b ${xmlDoc}`)
                         })
 
                     }
