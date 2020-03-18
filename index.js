@@ -142,16 +142,18 @@ try {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
+                            
+                            // These are the two tags that add packages to the repo
+                            let dependencies = xmlDoc.getElementsByTagName('dependency')
+                            let plugin = xmlDoc.getElementsByTagName('plugin')
 
-                            console.log(`xmlDoc.dependencies.nodeType: ${xmlDoc.getElementsByTagName('dependency')["$$length"]}`)
-                            for(i = 0; i < xmlDoc.getElementsByTagName('dependency')["$$length"]; i++) {
-                                console.log(element)
+                            for(i = 0; i < dependencies["$$length"]; i++) {
+                                console.log(dependencies[i])
                             }
 
                             console.log(`=================================================================`)
-                            console.log(`xmlDoc.plugins:.nodeType:     ${xmlDoc.getElementsByTagName('plugin')["$$length"]}`)
-                            for(i = 0; i < xmlDoc.getElementsByTagName('dependency')["$$length"]; i++) {
-                                console.log(element)
+                            for(i = 0; i < plugin["$$length"]; i++) {
+                                console.log(plugin[i])
                             }
                         })
                         .catch(error => core.setFailed(error.message));
