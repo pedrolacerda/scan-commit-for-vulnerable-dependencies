@@ -144,7 +144,7 @@ try {
                             let xmlDoc = parser.parseFromString(fileChanged)
                             
                             // These are the two tags that add packages to the repo
-                            let dependencies = xmlDoc.getElementsByTagName('dependency')
+                            let dependencies = xmlDoc.getElementsByTagName('groupId')
                             let plugin = xmlDoc.getElementsByTagName('artifactId')
 
                             for(i = 0; i < dependencies["$$length"]; i++) {
