@@ -138,10 +138,10 @@ try {
 
                         //Get file content to scan each vulnerability
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( fileChanged => {
-                            // console.log(`fileChanged: ${fileChanged}`)
+                            console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
                             var xmlDoc = parser.parseFromString(fileChanged)
-                            console.log(xmlDoc.getElementsByName("groupId"))
+                            console.log(xmlDoc)
                         })
 
                     }
