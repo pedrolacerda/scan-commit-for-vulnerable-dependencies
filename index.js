@@ -144,8 +144,8 @@ try {
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
                             let formattedXml = format(fileChanged)
-                            console.log(`formattedXml:\n ${formattedXml}`)
-                            console.log(`xmlDoc:\b ${xmlDoc}`)
+                            //console.log(`formattedXml:\n ${formattedXml}`)
+                            console.log(`xmlDoc:\b ${JSON.stringify(xmlDoc, undefined, 2)}`)
                         })
 
                     }
