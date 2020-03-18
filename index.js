@@ -143,18 +143,16 @@ try {
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
 
-                            // console.log(`xmlDoc.dependencies.nodeType: ${Object.keys(xmlDoc.getElementsByTagName('dependency'))}`)
                             console.log(`xmlDoc.dependencies.nodeType: ${xmlDoc.getElementsByTagName('dependency')["$$length"]}`)
-                            // for(element in xmlDoc.getElementsByTagName('dependency')) {
-                            //     console.log(element)
-                            // }
+                            for(i = 0; i < xmlDoc.getElementsByTagName('dependency')["$$length"]; i++) {
+                                console.log(element)
+                            }
 
                             console.log(`=================================================================`)
-                            // console.log(`xmlDoc.plugins:.nodeType:     ${Object.keys(xmlDoc.getElementsByTagName('plugin'))}`)
                             console.log(`xmlDoc.plugins:.nodeType:     ${xmlDoc.getElementsByTagName('plugin')["$$length"]}`)
-                            // for(element in xmlDoc.getElementsByTagName('plugin')) {
-                            //     console.log(element)
-                            // }
+                            for(i = 0; i < xmlDoc.getElementsByTagName('dependency')["$$length"]; i++) {
+                                console.log(element)
+                            }
                         })
                         .catch(error => core.setFailed(error.message));
                     }
