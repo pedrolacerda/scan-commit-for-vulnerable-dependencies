@@ -124,7 +124,8 @@ try {
             }
         );
 
-        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name).then( async files => {
+        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name)
+        .then( async files => {
             // console.log(`PR Files\n: ${JSON.stringify(files, undefined, 2)}`)
             
             files.forEach( file => {
@@ -139,7 +140,8 @@ try {
                         console.log(`The dependency file ${file.filename} was changed`)
 
                         //Get file content to scan each vulnerability
-                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref).then( async fileChanged => {
+                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref)
+                        .then( async fileChanged => {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
@@ -149,6 +151,7 @@ try {
                             // console.log(`xmlDoc:\n ${JSON.stringify(xmlDoc, undefined, 2)}`)
                             console.log(`xmlDoc:\n ${xmlDoc}`)
                         })
+                        .catch(error => core.setFailed(error.message));
                     }
                 } else {
                     core.setFailed("We can check for vulnerabilities for any of the languages of this repository")
