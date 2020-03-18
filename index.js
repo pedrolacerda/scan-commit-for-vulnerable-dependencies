@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const DOMParser = require('dom-parser');
+const DOMParser = require('xmldom').DOMParser;
 
 // [TO-DO] Make it smarter later on
 const languagesEcosystems = [
@@ -141,7 +141,7 @@ try {
                             console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
                             var xmlDoc = parser.parseFromString(fileChanged)
-                            console.log(xmlDoc)
+                            console.log(xmlDoc.getElementsByName("groupId"))
                         })
 
                     }
