@@ -132,20 +132,13 @@ try {
             files.forEach( function(file) {
                 
                 //Checks if dependency files were changed
-                var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file === file.filename)
+                var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file.endsWith(file.filename))
 
-                languagesEcosystemsInPR.find(dependencyFile => {
-                    console.log(`dependencyFile.file.endsWith(file.filename): ${dependencyFile.file.endsWith(file.filename)}`)
-                })
 
                 if(typeof dependencyFileName !== "undefined") {
                     console.log(`The dependency file ${file.filename} was changed`)
                     console.log(`Commit sha: ${file.sha}`)
                     console.log(`Patch: ${file.patch}`)
-
-                    
-
-                    
                 }
             })
                 
