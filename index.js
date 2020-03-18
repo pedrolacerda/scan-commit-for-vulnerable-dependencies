@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const DOMParser = require('dom-parser');
+const DOMParser = require('xmldom').DOMParser;
 const format = require('xml-formatter');
 
 
