@@ -150,8 +150,8 @@ try {
                             for(i = 0; i < groupId["$$length"]; i++) {
                                 //console.log(groupId[i])
                                 //console.log(`Library [${i}]: ${groupId[i]}:${groupId[i].nextSibling} - version:${groupId[i].nextSibling.nextSibling}`)
-                                console.log(`Library [${i}]: ${Object.keys(groupId[i].attributes)}`)
-                                console.log(`Keys:${Object.keys(groupId[i])}`)
+                                console.log(`Library [${i}]: ${(groupId[i]._ownerElement)}`)
+                                console.log(`Keys:${groupId[i].localName}`)
                             }
                         })
                         .catch(error => core.setFailed(error.message));
