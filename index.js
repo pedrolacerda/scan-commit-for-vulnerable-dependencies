@@ -165,7 +165,6 @@ try {
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
-                                    console.log(`Vulnerabilities:\n ${JSON.stringify(values, undefined, 2)}`)
                                     if(typeof values !== "undefined"){
                                         hasVulnerabilities = true
 
