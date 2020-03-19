@@ -169,7 +169,7 @@ try {
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
                                     if(typeof values !== "undefined"){
-                                        minimumVersion = ""
+                                        minimumVersion = "0.0"
 
                                         let vulerabilities = values.securityVulnerabilities.nodes
                                         console.log(`Package: ${package}`)
@@ -179,10 +179,11 @@ try {
                                                 // If the version of the package used is lower than the first patched version
                                                 // AND the first patched version of the package is bigger than minimun version registered so far
                                                 console.log(`Is [${version}] valid version?: ${semver.valid(semver.coerce(version.toString()))}`)
-                                                console.log(`Is [${vulnerability.firstPatchedVersion.identifier}] valid version?: ${semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier))}`)
-                                                console.log(`Is [${minimumVersion}] valid version?: ${semver.valid(semver.coerce(minimumVersion))}`)
+                                                console.log(`Is [${vulnerability.firstPatchedVersion.identifier}] valid version?: ${semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString()))}`)
+                                                console.log(`Is [${minimumVersion}] valid version?: ${semver.valid(semver.coerce(minimumVersion.toString()))}`)
 
-                                                if((semver.compare(version, vulnerability.firstPatchedVersion.identifier) == -1) && (semver.compare(vulnerability.firstPatchedVersion.identifier, minimumVersion) == 1)){
+                                                if((semver.compare(semver.valid(semver.coerce(version.toString())), semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString()))) == -1)
+                                                && (semver.compare(semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString())), semver.valid(semver.coerce(minimumVersion.toString()))) == 1)){
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
                                                     console.log(`Package version: ${version}`)
                                                     console.log(`First patched version: ${vulnerability.firstPatchedVersion.identifier}`)
