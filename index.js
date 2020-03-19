@@ -178,7 +178,6 @@ try {
 
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
                                 let version = getVersionValue(artifactVersions[i]['childNodes'], xmlDoc)
-                                console.log(`version value: ${version}`)                         
                                 let hasVulnerabilities = false
                                 let minimumVersion = ""
                                 // Loop over the list of vulnerabilities of a package
