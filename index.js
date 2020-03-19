@@ -121,7 +121,6 @@ try {
 
         }).catch( error => {
             core.setFailed(error.message);
-            console.log(error)
             }
         );
 
@@ -131,7 +130,8 @@ try {
             //Needs to have at least one language that GitHub scans vulnerabilities
             if(typeof languagesEcosystemsInPR !== 'undefined'){
                 files.forEach( file => {
-                
+                    console.log(`======== Printa antes? ========`)
+
                     //Checks if dependency files were changed
                     var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file.endsWith(file.filename))
 
