@@ -180,14 +180,13 @@ try {
                                 }).catch( error => core.setFailed(error.message))
                             }
                         }).catch(error => {
-                            // core.setFailed(error.message)
+                            core.setFailed(error.message)
                             console.log(error)
                         });
                     }
                }) 
             } else {
-                // core.setFailed("We can't check for vulnerabilities for any of the languages on this repository")
-                console.log(error)
+                core.setFailed("We can't check for vulnerabilities for any of the languages on this repository")
             } 
 
         }).catch( error => {
