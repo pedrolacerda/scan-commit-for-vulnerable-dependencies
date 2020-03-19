@@ -156,12 +156,12 @@ try {
 
                             for(i = 0; i < groupIds["$$length"]; i++) {
 
-                                // let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
-                                // let version = artifactVersions[i]['childNodes']
-                                // let minimumVersion = ""
+                                let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
+                                let version = artifactVersions[i]['childNodes']
+                                let minimumVersion = ""
 
-                                // console.log(`package: ${package}`)
-                                // console.log(`version: ${version}`)
+                                console.log(`package: ${package}`)
+                                console.log(`version: ${version}`)
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
