@@ -145,7 +145,7 @@ try {
                             // console.log(`Arquivo:\n ${fileChanged}`)
 
                             let parser = new DOMParser()
-                            // let xmlDoc = parser.parseFromString(fileChanged)
+                            let xmlDoc = parser.parseFromString(fileChanged)
                             
                             // // These are the two tags that add packages to the repo
                             // let groupIds = xmlDoc.getElementsByTagName('groupId')
