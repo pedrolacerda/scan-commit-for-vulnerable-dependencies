@@ -135,7 +135,7 @@ try {
 
                     if(typeof dependencyFileName !== "undefined") {
                         console.log(`The dependency file ${file.filename} was changed`)
-                        console.log(`PR Payload:\n${context.payload.pull_request}`)
+                        console.log(`PR Payload:\n ${JSON.stringify(context.payload.pull_request, undefined, 2)}`)
 
                         //Get file content to scan each vulnerability
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref)
