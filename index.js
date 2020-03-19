@@ -40,7 +40,7 @@ async function getVulnerability(package, ecosystem) {
     
     let query = ` 
     query { 
-        securityVulnerabilities(ecosystem: MAVEN, first:100, package:'com.fasterxml.jackson.core:jackson-databind') {
+        securityVulnerabilities(ecosystem:MAVEN, first:100, package:"com.fasterxml.jackson.core:jackson-databind") {
             nodes {
                 firstPatchedVersion { identifier },
                 severity,
@@ -160,8 +160,8 @@ try {
                                 let version = artifactVersions[i]['childNodes']
                                 let minimumVersion = ""
 
-                                console.log(`package: ${package}`)
-                                console.log(`version: ${version}`)
+                                // console.log(`package: ${package}`)
+                                // console.log(`version: ${version}`)
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
