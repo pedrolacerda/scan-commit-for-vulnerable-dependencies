@@ -154,7 +154,7 @@ try {
                                 console.log(`Version [${i}]: ${artifactVersion[i]['childNodes']}\n`)
 
                             }
-                        })//asldhfds
+                        })
 
                         .catch(error => core.setFailed(error.message));
                     }
