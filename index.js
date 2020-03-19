@@ -138,7 +138,7 @@ try {
                         console.log(`PR Payload:\n ${JSON.stringify(context.payload.pull_request, undefined, 2)}`)
 
                         //Get file content to scan each vulnerability
-                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref)
+                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
                         .then( async fileChanged => {
                             // console.log(`fileChanged: ${fileChanged}`)
                             let parser = new DOMParser()
