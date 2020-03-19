@@ -1,4 +1,4 @@
-kljsdlfkjdconst core = require('@actions/core');
+const core = require('@actions/core');
 const github = require('@actions/github');
 const DOMParser = require('xmldom').DOMParser;
 const semver = require('semver');
