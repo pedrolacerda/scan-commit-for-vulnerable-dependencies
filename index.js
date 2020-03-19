@@ -194,10 +194,9 @@ try {
                                                 if((semver.compare(semver.valid(semver.coerce(version.toString())), semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString()))) == -1)
                                                 && (semver.compare(semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString())), semver.valid(semver.coerce(minimumVersion.toString()))) == 1)){
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
-                                                    console.log(`Package version: ${version}`)
+                                                    console.log(`Current version: ${version}`)
                                                     console.log(`First patched version: ${vulnerability.firstPatchedVersion.identifier}`)
                                                     console.log(`Minimum version: ${minimumVersion}`)
-                                                    console.log(`---------------------------------------------------------`)
                                                     hasVulnerabilities = true
                                                 }
                                             }
