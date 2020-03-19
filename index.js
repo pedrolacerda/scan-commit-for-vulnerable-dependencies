@@ -121,7 +121,7 @@ function getVersionValue(versionVariable, xmlDoc){
         console.log(`versionValue: ${versionValue}`)
         
         //If it's not possible to find a node with version name, return an empty string
-        if(versionValue == null || typeof versionValue !== "undefined" || versionValue == ""){
+        if(versionValue == null || typeof versionValue === "undefined" || versionValue == ""){
             console.log(`Didn't find anything, really?`)
             return ""
         
