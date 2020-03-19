@@ -150,7 +150,7 @@ try {
                             
                             for(i = 0; i < groupId["$$length"]; i++) {
                                 console.log(`Library [${i}]: ${groupId[i]['childNodes']}:${artifactId[i]['childNodes']}`)
-                                console.log(`Version [${i}]: ${artifactVersion[i]}\n`)
+                                console.log(`Version [${i}]: ${artifactVersion[i]['childNodes']}\n`)
 
                             }
                         })
