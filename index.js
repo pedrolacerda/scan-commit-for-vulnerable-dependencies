@@ -136,7 +136,8 @@ try {
 
                     if(typeof dependencyFileName !== "undefined") {
                         console.log(`The dependency file ${file.filename} was changed`)
-                        let ecosystem = 'MAVEN'
+                        let ecosystem = dependencyFile.ecosystem
+                        console.log(`Ecosystem is: ${ecosystem}`)
 
                         //Get file content to scan each vulnerability
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
@@ -157,12 +158,12 @@ try {
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
                                 let version = artifactVersions[i]['childNodes']                                
                                 let hasVulnerabilities = false
-                                
+                                let minimumVersion = ""
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
                                     if(typeof values !== "undefined"){
                                         hasVulnerabilities = true
-                                        let minimumVersion = ""
+                                        minimumVersion = ""
 
                                         let vulerabilities = values.securityVulnerabilities.nodes
 
@@ -172,6 +173,8 @@ try {
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
                                                 }
                                             }
+                                            console.log(`Minimum version: ${minimumVersion}`)
+                                            console.log(`Package: ${package}`)
                                         })
                                         if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
 
