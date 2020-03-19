@@ -171,8 +171,10 @@ try {
 
                                         let vulerabilities = values.securityVulnerabilities.nodes
                                         vulerabilities.forEach(vulnerability => {
-                                            if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
-                                                minimumVersion = vulnerability.firstPatchedVersion.identifier
+                                            if(vulnerability !== null && typeof vulnerability !== 'undefined'){
+                                                if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
+                                                    minimumVersion = vulnerability.firstPatchedVersion.identifier
+                                                }
                                             }
                                         })
                                     }
