@@ -165,18 +165,18 @@ try {
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
-                                    console.log(`Vulnerabilities:\n ${values}`)
-                                    // if(typeof values !== "undefined"){
-                                    //     hasVulnerabilities = true
+                                    console.log(`Vulnerabilities:\n ${JSON.stringify(values, undefined, 2)}`)
+                                    if(typeof values !== "undefined"){
+                                        hasVulnerabilities = true
 
-                                    //     let vulerabilities = values.securityVulnerabilities.nodes
-                                    //     vulerabilities.forEach(vulnerability => {
-                                    //         if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
-                                    //             minimumVersion = vulnerability.firstPatchedVersion.identifier
-                                    //         }
-                                    //     })
-                                    // }
-                                    // if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
+                                        let vulerabilities = values.securityVulnerabilities.nodes
+                                        vulerabilities.forEach(vulnerability => {
+                                            if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
+                                                minimumVersion = vulnerability.firstPatchedVersion.identifier
+                                            }
+                                        })
+                                    }
+                                    if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
                                 }).catch( error => {
                                     core.setFailed(error.message)
                                     console.log(error)
