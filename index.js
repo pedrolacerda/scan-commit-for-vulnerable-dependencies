@@ -138,6 +138,8 @@ try {
                         console.log(`The dependency file ${file.filename} was changed`)
                         let ecosystem = dependencyFileName.ecosystem
                         console.log(`Ecosystem is: ${ecosystem}`)
+                        console.log(`---------------------------------------------------------`)
+
 
                         //Get file content to scan each vulnerability
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
@@ -165,20 +167,20 @@ try {
                                         minimumVersion = ""
 
                                         let vulerabilities = values.securityVulnerabilities.nodes
+                                        console.log(`Package: ${package}`)
 
                                         vulerabilities.forEach( vulnerability => {
                                             if(vulnerability.firstPatchedVersion != null && typeof vulnerability.firstPatchedVersion !== 'undefined'){
-                                                hasVulnerabilities = true
                                                 // If the version of the package used is lower than the first patched version
                                                 // AND the first patched version of the package is bigger than minimun version registered so far
                                                 if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
                                                     console.log(`Minimum version: ${minimumVersion}`)
-                                                    console.log(`First patched version: ${vulnerability.firstPatchedVersion}`)
+                                                    console.log(`First patched version: ${vulnerability.firstPatchedVersion.identifier}`)
                                                     console.log(`Package version: ${version}`)
                                                     console.log(`---------------------------------------------------------`)
+                                                    hasVulnerabilities = true
                                                 }
-                                                console.log(`Package: ${package}`)
                                             }
                                         })
                                         if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
