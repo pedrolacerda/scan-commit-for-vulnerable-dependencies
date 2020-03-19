@@ -1,4 +1,4 @@
-const core = require('@actions/core');
+kljsdlfkjdconst core = require('@actions/core');
 const github = require('@actions/github');
 const DOMParser = require('xmldom').DOMParser;
 const semver = require('semver');
@@ -107,13 +107,14 @@ async function getFileInCommit(owner, repo, path, ref) {
 }
 
 function getVersionValue(versionVariable, xmlDoc){
-    console.log(`versionVariable: ${versionVariable}`)
 
     var version = semver.valid(semver.coerce(versionVariable.toString()))
     //if the version value is explicit return it formated
     if(version != null && typeof version !== "undefined") {
         return version
     } else { // If the version value is a variable or null
+        versionVariable.replace('{','').replace('}','').replace('$','')
+        console.log(`versionVariable: ${versionVariable}`)
         let versionValue = xmlDoc.getElementsByTagName(versionVariable)
 
         //If it's not possible to find a node with version name, return an empty string
