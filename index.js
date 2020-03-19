@@ -109,6 +109,10 @@ async function getFileInCommit(owner, repo, path, ref) {
 }
 
 try {
+    console.log(`======== DEBUGGING SEMVER ========`)
+    console.log(`semver.valid('1.2.3'): ${semver.valid('1.2.3')}`)
+    console.log(`semver.valid('a.b.c'): ${semver.valid('a.b.c')}`)
+
     let context = github.context
 
     if(context.eventName == `pull_request`){
