@@ -90,8 +90,6 @@ async function getLanguageList(owner, repo) {
 /*
  * Get the content of a file
  */
-
-//akjhf lkajshd flkahsj dkjfahskljdfh askjlh fkjsd
 async function getFileInCommit(owner, repo, path, ref) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
     
@@ -106,6 +104,22 @@ async function getFileInCommit(owner, repo, path, ref) {
     })
 
     return fileInCommity
+}
+
+function getVersionValue(versionVariable, xmlDoc){
+
+    var version = semver.valid(semver.coerce(versionVariable.toString()))
+    //if the version value is explicit return it formated
+    if(version != null && typeof version !== "undefined") {
+        return version
+    } else { // If the version value is a variable or null
+        let versionValue = xmlDoc.getElementsByTagName(versionVariable)[0]["childNodes"]
+
+        //If it's not possible to find a node with version name, return an empty string
+        if(versionValue == null || typeof versionValue !== "undefined") return ""
+        //otherwise, return the value of the node
+        else return semver.valid(semver.coerce(versionValue.toString()))
+    }
 }
 
 try {
@@ -159,7 +173,8 @@ try {
                             for(i = 0; i < groupIds["$$length"]; i++) {
 
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
-                                let version = artifactVersions[i]['childNodes']                                
+                                let version = artifactVersions[i]['childNodes']
+                                console.log(`version value: ${getVersionValue(version, xmlDoc)}`)                         
                                 let hasVulnerabilities = false
                                 let minimumVersion = ""
                                 // Loop over the list of vulnerabilities of a package
