@@ -169,6 +169,7 @@ try {
                                         hasVulnerabilities = true
 
                                         let vulerabilities = values.securityVulnerabilities.nodes
+                                        console.log(`vulnerabilities: ${vulerabilities}`)
                                         vulerabilities.forEach( vulnerability => {
                                             if(vulnerability != null && typeof vulnerability !== 'undefined'){
                                                 if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
