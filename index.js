@@ -135,7 +135,7 @@ try {
 
                     if(typeof dependencyFileName !== "undefined") {
                         console.log(`The dependency file ${file.filename} was changed`)
-                        console.log(`base_ref:${context.payload.pull_request.base.ref}`)
+                        console.log(`PR Payload:\n${context.payload.pull_request}`)
 
                         //Get file content to scan each vulnerability
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref)
@@ -155,7 +155,7 @@ try {
 
                             }
                         })//asldhfds
-                        
+
                         .catch(error => core.setFailed(error.message));
                     }
                 } else {
