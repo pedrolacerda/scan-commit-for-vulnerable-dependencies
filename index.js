@@ -38,6 +38,15 @@ const languagesEcosystems = [
 async function getVulnerability(package, ecosystem) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
     
+    const headersWithTokenExposedForDemo = {
+        hostname: file.raw_url,
+        method: 'GET',
+        headers: {
+            'Accept': 'application/vnd.github.antiope-preview+json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer d63e7256194fb5818c949784aa72943a25fccdff'
+    }
+    
     let query = ` 
     query { 
         securityVulnerabilities(ecosystem:MAVEN, first:100, package:"com.fasterxml.jackson.core:jackson-databind") {
