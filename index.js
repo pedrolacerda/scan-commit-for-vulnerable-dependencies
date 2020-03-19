@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const DOMParser = require('xmldom').DOMParser;
+const semver = require('semver');
 
 // [TO-DO] Make it smarter later on
 const languagesEcosystems = [
@@ -173,7 +174,7 @@ try {
                                             if(vulnerability.firstPatchedVersion != null && typeof vulnerability.firstPatchedVersion !== 'undefined'){
                                                 // If the version of the package used is lower than the first patched version
                                                 // AND the first patched version of the package is bigger than minimun version registered so far
-                                                if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
+                                                if((semver.compare(version, vulnerability.firstPatchedVersion.identifier) == -1) && (semver.compare(vulnerability.firstPatchedVersion.identifier, minimumVersion) == 1)){
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
                                                     console.log(`Package version: ${version}`)
                                                     console.log(`First patched version: ${vulnerability.firstPatchedVersion.identifier}`)
