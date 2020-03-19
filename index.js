@@ -41,7 +41,7 @@ async function getVulnerability(package, ecosystem) {
     
     let query = ` 
     query { 
-        securityVulnerabilities(ecosystem:MAVEN, first:100, package:package) {
+        securityVulnerabilities(ecosystem:MAVEN, first:100, package:${package}) {
             nodes {
                 firstPatchedVersion { identifier },
                 severity,
