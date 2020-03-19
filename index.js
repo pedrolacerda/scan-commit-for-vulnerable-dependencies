@@ -119,10 +119,14 @@ function getVersionValue(versionVariable, xmlDoc){
 
         let versionValue = xmlDoc.getElementsByTagName(versionVariableTrimmed)
         console.log(`versionValue: ${versionValue}`)
+        
         //If it's not possible to find a node with version name, return an empty string
-        if(versionValue == null || typeof versionValue !== "undefined" || versionValue == "") return ""
-        //otherwise, return the value of the node
-        else {
+        if(versionValue == null || typeof versionValue !== "undefined" || versionValue == ""){
+            console.log(`Didn't find anything, really?`)
+            return ""
+        
+         //otherwise, return the value of the node
+        } else {
             console.log(`Version captured from XML tag: ${semver.valid(semver.coerce(versionValue[0]["childNodes"].toString()))}`)
             return semver.valid(semver.coerce(versionValue[0]["childNodes"].toString()))
         }
