@@ -156,7 +156,7 @@ try {
                             for(i = 0; i < groupIds["$$length"]; i++) {
 
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
-                                let version = artifactVersions[i][childNodes]
+                                let version = artifactVersions[i]['childNodes']
                                 let minimumVersion = ""
                                 
                                 // Loop over the list of vulnerabilities of a package
