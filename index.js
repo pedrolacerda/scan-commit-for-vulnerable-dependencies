@@ -142,9 +142,9 @@ try {
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
                         .then( async fileChanged => {
 
-                            console.log(`Arquivo:\n ${fileChanged}`)
+                            // console.log(`Arquivo:\n ${fileChanged}`)
 
-                            // let parser = new DOMParser()
+                            let parser = new DOMParser()
                             // let xmlDoc = parser.parseFromString(fileChanged)
                             
                             // // These are the two tags that add packages to the repo
