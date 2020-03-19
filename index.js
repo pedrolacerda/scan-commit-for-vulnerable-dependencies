@@ -157,12 +157,12 @@ try {
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
                                 let version = artifactVersions[i]['childNodes']                                
                                 let hasVulnerabilities = false
-                                let minimumVersion = ""
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
                                     if(typeof values !== "undefined"){
                                         hasVulnerabilities = true
+                                        let minimumVersion = ""
 
                                         let vulerabilities = values.securityVulnerabilities.nodes
 
@@ -173,8 +173,9 @@ try {
                                                 }
                                             }
                                         })
+                                        if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
+
                                     }
-                                    if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
                                 }).catch( error => {
                                     core.setFailed(error.message)
                                     console.log(error)
