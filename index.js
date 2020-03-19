@@ -175,9 +175,9 @@ try {
                                                 // AND the first patched version of the package is bigger than minimun version registered so far
                                                 if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
-                                                    console.log(`Minimum version: ${minimumVersion}`)
-                                                    console.log(`First patched version: ${vulnerability.firstPatchedVersion.identifier}`)
                                                     console.log(`Package version: ${version}`)
+                                                    console.log(`First patched version: ${vulnerability.firstPatchedVersion.identifier}`)
+                                                    console.log(`Minimum version: ${minimumVersion}`)
                                                     console.log(`---------------------------------------------------------`)
                                                     hasVulnerabilities = true
                                                 }
