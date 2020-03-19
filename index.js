@@ -136,7 +136,7 @@ try {
 
                     if(typeof dependencyFileName !== "undefined") {
                         console.log(`The dependency file ${file.filename} was changed`)
-                        let ecosystem = dependencyFile.ecosystem
+                        let ecosystem = dependencyFileName.ecosystem
                         console.log(`Ecosystem is: ${ecosystem}`)
 
                         //Get file content to scan each vulnerability
