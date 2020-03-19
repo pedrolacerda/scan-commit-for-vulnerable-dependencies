@@ -177,11 +177,15 @@ try {
                                     // if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
                                 // }).catch( error => core.setFailed(error.message))
                             }
-                        })//.catch(error => core.setFailed(error.message));
+                        }).catch(error => {
+                            core.setFailed(error.message)
+                            console.log(error)
+                        });
                     }
                }) 
             } else {
-                core.setFailed("We can't check for vulnerabilities for any of the languages on this repository")
+                // core.setFailed("We can't check for vulnerabilities for any of the languages on this repository")
+                console.log(error)
             } 
 
         }).catch( error => {
