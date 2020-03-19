@@ -152,16 +152,10 @@ try {
                             let artifactIds = xmlDoc.getElementsByTagName('artifactId')
                             let artifactVersions = xmlDoc.getElementsByTagName('version')
 
-                            let hasVulnerabilities = false
-
                             for(i = 0; i < groupIds["$$length"]; i++) {
 
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
-                                let version = artifactVersions[i]['childNodes']
-                                let minimumVersion = ""
-
-                                // console.log(`package: ${package}`)
-                                // console.log(`version: ${version}`)
+                                let version = artifactVersions[i]['childNodes']                                let hasVulnerabilities = false
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
@@ -169,8 +163,9 @@ try {
                                         hasVulnerabilities = true
 
                                         let vulerabilities = values.securityVulnerabilities.nodes
-                                        console.log(`vulnerabilities: ${vulerabilities}`)
+
                                         vulerabilities.forEach( vulnerability => {
+                                            let minimumVersion = ""
                                             if(vulnerability.firstPatchedVersion != null && typeof vulnerability.firstPatchedVersion !== 'undefined'){
                                                 if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
