@@ -177,7 +177,7 @@ try {
                                     // if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
                                 // }).catch( error => core.setFailed(error.message))
                             }
-                        }).catch(error => core.setFailed(error.message));
+                        })//.catch(error => core.setFailed(error.message));
                     }
                }) 
             } else {
@@ -199,12 +199,3 @@ try {
 } catch (error) {
   core.setFailed(error.message);
 }
-
-// getVulnerability().then(function(values) {
-//     console.log('---------------- Promise values ----------------');
-//     console.log(values.securityVulnerabilities.nodes);
-// }).catch( error => {
-//     core.setFailed(error.message);
-//     console.log(error)
-//     }
-// );
