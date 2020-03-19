@@ -148,11 +148,11 @@ try {
                             let xmlDoc = parser.parseFromString(fileChanged)
                             
                             // // These are the two tags that add packages to the repo
-                            // let groupIds = xmlDoc.getElementsByTagName('groupId')
-                            // let artifactIds = xmlDoc.getElementsByTagName('artifactId')
-                            // let artifactVersions = xmlDoc.getElementsByTagName('version')
+                            let groupIds = xmlDoc.getElementsByTagName('groupId')
+                            let artifactIds = xmlDoc.getElementsByTagName('artifactId')
+                            let artifactVersions = xmlDoc.getElementsByTagName('version')
 
-                            // let hasVulnerabilities = false
+                            let hasVulnerabilities = false
 
                             for(i = 0; i < groupIds["$$length"]; i++) {
 
