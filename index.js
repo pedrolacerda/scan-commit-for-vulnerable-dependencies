@@ -144,28 +144,28 @@ try {
 
                             console.log(`Arquivo:\n ${fileChanged}`)
 
-                            let parser = new DOMParser()
-                            let xmlDoc = parser.parseFromString(fileChanged)
+                            // let parser = new DOMParser()
+                            // let xmlDoc = parser.parseFromString(fileChanged)
                             
-                            // These are the two tags that add packages to the repo
-                            let groupIds = xmlDoc.getElementsByTagName('groupId')
-                            let artifactIds = xmlDoc.getElementsByTagName('artifactId')
-                            let artifactVersions = xmlDoc.getElementsByTagName('version')
+                            // // These are the two tags that add packages to the repo
+                            // let groupIds = xmlDoc.getElementsByTagName('groupId')
+                            // let artifactIds = xmlDoc.getElementsByTagName('artifactId')
+                            // let artifactVersions = xmlDoc.getElementsByTagName('version')
 
-                            let hasVulnerabilities = false
+                            // let hasVulnerabilities = false
 
                             for(i = 0; i < groupIds["$$length"]; i++) {
 
-                                let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
-                                let version = artifactVersions[i]['childNodes']
-                                let minimumVersion = ""
+                                // let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
+                                // let version = artifactVersions[i]['childNodes']
+                                // let minimumVersion = ""
 
                                 // console.log(`package: ${package}`)
                                 // console.log(`version: ${version}`)
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
-                                    // console.log(`Vulnerabilities:\n ${values}`)
+                                    console.log(`Vulnerabilities:\n ${values}`)
                                     // if(typeof values !== "undefined"){
                                     //     hasVulnerabilities = true
 
