@@ -155,7 +155,8 @@ try {
                             for(i = 0; i < groupIds["$$length"]; i++) {
 
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
-                                let version = artifactVersions[i]['childNodes']                                let hasVulnerabilities = false
+                                let version = artifactVersions[i]['childNodes']                                
+                                let hasVulnerabilities = false
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
