@@ -135,6 +135,7 @@ try {
 
                     if(typeof dependencyFileName !== "undefined") {
                         console.log(`The dependency file ${file.filename} was changed`)
+                        console.log(`base_ref:${context.payload.pull_request.base.ref}`)
 
                         //Get file content to scan each vulnerability
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.base.ref)
