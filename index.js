@@ -207,9 +207,6 @@ try {
             console.log(error)
             }
         );
-
-        core.setFailed('Forcing error');
-
     } else {
         core.setFailed(`This action was not triggered by a Pull Request`);
     }
