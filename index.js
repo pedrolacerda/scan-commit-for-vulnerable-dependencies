@@ -174,6 +174,10 @@ try {
                                             if(vulnerability.firstPatchedVersion != null && typeof vulnerability.firstPatchedVersion !== 'undefined'){
                                                 // If the version of the package used is lower than the first patched version
                                                 // AND the first patched version of the package is bigger than minimun version registered so far
+                                                console.log(`Is [version] valid version?: ${semver.valid(version)}`)
+                                                console.log(`Is [vulnerability.firstPatchedVersion.identifier] valid version?: ${semver.valid(vulnerability.firstPatchedVersion.identifier)}`)
+                                                console.log(`Is [minimumVersion] valid version?: ${semver.valid(minimumVersion)}`)
+
                                                 if((semver.compare(version, vulnerability.firstPatchedVersion.identifier) == -1) && (semver.compare(vulnerability.firstPatchedVersion.identifier, minimumVersion) == 1)){
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
                                                     console.log(`Package version: ${version}`)
