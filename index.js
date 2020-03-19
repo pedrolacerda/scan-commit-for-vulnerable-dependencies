@@ -145,14 +145,13 @@ try {
                             
                             // These are the two tags that add packages to the repo
                             let groupId = xmlDoc.getElementsByTagName('groupId')
-                            // let artifactId = xmlDoc.getElementsByTagName('artifactId')
+                            let artifactId = xmlDoc.getElementsByTagName('artifactId')
                             
                             for(i = 0; i < groupId["$$length"]; i++) {
                                 //console.log(groupId[i])
                                 //console.log(`Library [${i}]: ${groupId[i]}:${groupId[i].nextSibling} - version:${groupId[i].nextSibling.nextSibling}`)
-                                console.log(`Library [${i}]: ${(groupId[i])}\n`)
-                                console.log(`Não faz sentido: ${groupId[i][1]}\n`)
-                                console.log(`Vai dar erro: ${groupId[i]['childNodes']}\n`)
+                                console.log(`Library [${i}]: ${groupId[i]['childNodes']}\n`)
+                                console.log(`Library [${i}]: ${artifactId[i]['childNodes']}\n`)
                             }
                         })
                         .catch(error => core.setFailed(error.message));
