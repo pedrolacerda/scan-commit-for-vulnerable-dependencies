@@ -140,7 +140,7 @@ try {
                         //Get file content to scan each vulnerability
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
                         .then( async fileChanged => {
-                            // console.log(`fileChanged: ${fileChanged}`)
+
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
                             
