@@ -168,10 +168,10 @@ try {
                                         minimumVersion = "0.0"
 
                                         let vulerabilities = values.securityVulnerabilities.nodes
-                                        console.log(`Package: ${package}`)
 
                                         vulerabilities.forEach( vulnerability => {
-                                            console.log(`Vulnerability: ${JSON.stringify(vulnerability, undefined, 2)}`)
+                                            console.log(`Package: ${package}`)
+                                            console.log(`vulnerability: ${JSON.stringify(vulnerability, undefined, 2)}`)
                                             if(vulnerability.firstPatchedVersion != null && typeof vulnerability.firstPatchedVersion !== 'undefined'){
                                                 // If the version of the package used is lower than the first patched version
                                                 // AND the first patched version of the package is bigger than minimun version registered so far
