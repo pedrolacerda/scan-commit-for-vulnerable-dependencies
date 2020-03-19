@@ -157,6 +157,7 @@ try {
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
                                 let version = artifactVersions[i]['childNodes']                                
                                 let hasVulnerabilities = false
+                                let minimumVersion = ""
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
@@ -164,7 +165,6 @@ try {
                                         hasVulnerabilities = true
 
                                         let vulerabilities = values.securityVulnerabilities.nodes
-                                        let minimumVersion = ""
 
                                         vulerabilities.forEach( vulnerability => {
                                             if(vulnerability.firstPatchedVersion != null && typeof vulnerability.firstPatchedVersion !== 'undefined'){
