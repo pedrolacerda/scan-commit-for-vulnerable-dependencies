@@ -142,6 +142,8 @@ try {
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
                         .then( async fileChanged => {
 
+                            console.log(`Arquivo:\n ${fileChanged}`)
+
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
                             
@@ -158,8 +160,8 @@ try {
                                 let version = artifactVersions[i]['childNodes']
                                 let minimumVersion = ""
 
-                                console.log(`package: ${package}`)
-                                console.log(`version: ${version}`)
+                                // console.log(`package: ${package}`)
+                                // console.log(`version: ${version}`)
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 // getVulnerability(package, ecosystem).then( async function(values) {
