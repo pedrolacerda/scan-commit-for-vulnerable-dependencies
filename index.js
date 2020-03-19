@@ -109,10 +109,6 @@ async function getFileInCommit(owner, repo, path, ref) {
 }
 
 try {
-    console.log(`======== DEBUGGING SEMVER ========`)
-    console.log(`semver.valid('1.2.3'): ${semver.valid('1.2.3')}`)
-    console.log(`semver.valid('a.b.c'): ${semver.valid('a.b.c')}`)
-
     let context = github.context
 
     if(context.eventName == `pull_request`){
@@ -175,16 +171,17 @@ try {
                                         console.log(`Package: ${package}`)
 
                                         vulerabilities.forEach( vulnerability => {
+                                            console.log(`Vulnerability: ${JSON.stringify(vulnerability, undefined, 2)}`)
                                             if(vulnerability.firstPatchedVersion != null && typeof vulnerability.firstPatchedVersion !== 'undefined'){
                                                 // If the version of the package used is lower than the first patched version
                                                 // AND the first patched version of the package is bigger than minimun version registered so far
                                                 if((semver.compare(semver.valid(semver.coerce(version.toString())), semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString()))) == -1)
                                                 && (semver.compare(semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString())), semver.valid(semver.coerce(minimumVersion.toString()))) == 1)){
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
-                                                    console.log(`Package version: ${version}`)
-                                                    console.log(`First patched version: ${vulnerability.firstPatchedVersion.identifier}`)
-                                                    console.log(`Minimum version: ${minimumVersion}`)
-                                                    console.log(`---------------------------------------------------------`)
+                                                    // console.log(`Package version: ${version}`)
+                                                    // console.log(`First patched version: ${vulnerability.firstPatchedVersion.identifier}`)
+                                                    // console.log(`Minimum version: ${minimumVersion}`)
+                                                    // console.log(`---------------------------------------------------------`)
                                                     hasVulnerabilities = true
                                                 }
                                             }
