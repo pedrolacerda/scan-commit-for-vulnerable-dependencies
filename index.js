@@ -113,12 +113,12 @@ function getVersionValue(versionVariable, xmlDoc){
     if(version != null && typeof version !== "undefined") {
         return version
     } else { // If the version value is a variable or null
-        let versionValue = xmlDoc.getElementsByTagName(versionVariable)[0]["childNodes"]
+        let versionValue = xmlDoc.getElementsByTagName(versionVariable)
 
         //If it's not possible to find a node with version name, return an empty string
         if(versionValue == null || typeof versionValue !== "undefined") return ""
         //otherwise, return the value of the node
-        else return semver.valid(semver.coerce(versionValue.toString()))
+        else return semver.valid(semver.coerce(versionValue[0]["childNodes"].toString()))
     }
 }
 
