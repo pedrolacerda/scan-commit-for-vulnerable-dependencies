@@ -1,4 +1,3 @@
-# Example of a workflow for testing purposes
 name: Node.js CI
 
 on:
