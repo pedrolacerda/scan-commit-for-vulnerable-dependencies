@@ -152,6 +152,7 @@ try {
                             let artifactVersions = xmlDoc.getElementsByTagName('version')
 
                             let hasVulnerabilities = false
+                            console.log(`======== Chegamos aqui? ========`)
 
                             for(i = 0; i < groupIds["$$length"]; i++) {
 
@@ -159,6 +160,8 @@ try {
                                 let version = artifactVersions[i]['childNodes']
                                 let minimumVersion = ""
                                 
+                                console.log(`======== Chegamos dentro loop do XML ========`)
+
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then(function(values) {
                                     console.log(`Vulnerabilities:\n ${JSON.stringify(values)}`)
