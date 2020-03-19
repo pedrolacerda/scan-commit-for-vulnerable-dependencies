@@ -41,7 +41,7 @@ async function getVulnerability(package, ecosystem) {
     
     let query = ` 
     query { 
-        securityVulnerabilities(ecosystem:MAVEN, first:100, package:"com.fasterxml.jackson.core:jackson-databind") {
+        securityVulnerabilities(ecosystem:MAVEN, first:100, package:package) {
             nodes {
                 firstPatchedVersion { identifier },
                 severity,
