@@ -115,7 +115,7 @@ function getVersionValue(versionVariable, xmlDoc){
     } else { // If the version value is a variable or null
 
         let versionVariableTrimmed = versionVariable.toString().replace('{','').replace('}','').replace('$','')
-        console.log(`versionVariable: ${versionVariableTrimmed}`)
+        console.log(`versionVariableTrimmed: ${versionVariableTrimmed}`)
 
         let versionValue = xmlDoc.getElementsByTagName(versionVariableTrimmed)
         console.log(`versionValue: ${versionValue}`)
