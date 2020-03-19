@@ -163,7 +163,7 @@ try {
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then( async function(values) {
-                                    console.log(`Vulnerabilities:\n ${values}`)
+                                    // console.log(`Vulnerabilities:\n ${values}`)
                                     // if(typeof values !== "undefined"){
                                     //     hasVulnerabilities = true
 
@@ -179,10 +179,7 @@ try {
                                     core.setFailed(error.message);
                                 });
                             }
-                        }) //ljas dflaksdflksjdf 
-
-
-                        .catch(error => core.setFailed(error.message));
+                        }).catch(error => core.setFailed(error.message));
                     }
                }) 
             } else {
