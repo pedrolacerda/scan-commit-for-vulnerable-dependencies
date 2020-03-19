@@ -40,7 +40,7 @@ async function getVulnerability(package, ecosystem) {
     
     let query = ` 
     query { 
-        securityVulnerabilities(ecosystem:${ecosystem}, first:1, package:${package}) {
+        securityVulnerabilities(ecosystem:${ecosystem}, first:100, package:${package}) {
             nodes {
                 firstPatchedVersion { identifier },
                 severity,
@@ -143,6 +143,8 @@ try {
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
                         .then( async fileChanged => {
 
+                            console.log(`======== Chegamos aqui? ========`)
+
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
                             
@@ -152,15 +154,16 @@ try {
                             let artifactVersions = xmlDoc.getElementsByTagName('version')
 
                             let hasVulnerabilities = false
-                            console.log(`======== Chegamos aqui? ========`)
 
                             for(i = 0; i < groupIds["$$length"]; i++) {
+                                console.log(`======== Chegamos dentro loop do XML ========`)
+
 
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
                                 let version = artifactVersions[i]['childNodes']
                                 let minimumVersion = ""
                                 
-                                console.log(`======== Chegamos dentro loop do XML ========`)
+                                console.log(`======== Setamos as variáveisNahhhh dentro loop do XML ========`)
 
                                 // Loop over the list of vulnerabilities of a package
                                 getVulnerability(package, ecosystem).then(function(values) {
