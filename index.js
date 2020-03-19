@@ -162,11 +162,9 @@ try {
 
                                 // console.log(`package: ${package}`)
                                 // console.log(`version: ${version}`)
-
-//als jf;lksjdf ;lkasjdflkasjlfkajs; ldfkjas;ldkfjal;skjfl;asjfk
                                 
                                 // Loop over the list of vulnerabilities of a package
-                                // getVulnerability(package, ecosystem).then( async function(values) {
+                                getVulnerability(package, ecosystem).then( async function(values) {
                                     // console.log(`Vulnerabilities:\n ${values}`)
                                     // if(typeof values !== "undefined"){
                                     //     hasVulnerabilities = true
@@ -179,7 +177,7 @@ try {
                                     //     })
                                     // }
                                     // if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
-                                // }).catch( error => core.setFailed(error.message))
+                                }).catch( error => core.setFailed(error.message))
                             }
                         }).catch(error => {
                             // core.setFailed(error.message)
