@@ -37,9 +37,10 @@ const languagesEcosystems = [
  */
 async function getVulnerability(package, ecosystem) {
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
+    
     let query = ` 
     query { 
-        securityVulnerabilities(ecosystem: MAVEN, first:1, package:"com.hotels.styx:styx-api") {
+        securityVulnerabilities(ecosystem:${ecosystem}, first:1, package:${package}) {
             nodes {
                 firstPatchedVersion { identifier },
                 severity,
@@ -110,7 +111,6 @@ try {
     let context = github.context
 
     if(context.eventName == `pull_request`){
-        let vulerabilitySet = new Set();
         let languagesEcosystemsInPR
 
         getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
@@ -127,18 +127,17 @@ try {
 
         getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name)
         .then( async files => {            
-            files.forEach( file => {
-                
-                //Needs to have at least one language that GitHub scans vulnerabilities
-                if(typeof languagesEcosystemsInPR !== 'undefined'){
-                     //Checks if dependency files were changed
-                    var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file.endsWith(file.filename))
 
+            //Needs to have at least one language that GitHub scans vulnerabilities
+            if(typeof languagesEcosystemsInPR !== 'undefined'){
+                files.forEach( file => {
+                
+                    //Checks if dependency files were changed
+                    var dependencyFileName = languagesEcosystemsInPR.find(dependencyFile => dependencyFile.file.endsWith(file.filename))
 
                     if(typeof dependencyFileName !== "undefined") {
                         console.log(`The dependency file ${file.filename} was changed`)
-                        // console.log(`PR Payload:\n ${JSON.stringify(context.payload.pull_request, undefined, 2)}`)
-                        console.log(`head_ref: ${context.payload.pull_request.head.ref}`)
+                        let ecosystem = 'MAVEN'
 
                         //Get file content to scan each vulnerability
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
@@ -148,24 +147,45 @@ try {
                             let xmlDoc = parser.parseFromString(fileChanged)
                             
                             // These are the two tags that add packages to the repo
-                            let groupId = xmlDoc.getElementsByTagName('groupId')
-                            let artifactId = xmlDoc.getElementsByTagName('artifactId')
-                            let artifactVersion = xmlDoc.getElementsByTagName('version')
-                            
-                            for(i = 0; i < groupId["$$length"]; i++) {
-                                console.log(`Library [${i}]: ${groupId[i]['childNodes']}:${artifactId[i]['childNodes']}`)
-                                console.log(`Version [${i}]: ${artifactVersion[i]['childNodes']}\n`)
+                            let groupIds = xmlDoc.getElementsByTagName('groupId')
+                            let artifactIds = xmlDoc.getElementsByTagName('artifactId')
+                            let artifactVersions = xmlDoc.getElementsByTagName('version')
 
+                            let hasVulnerabilities = false
+
+                            for(i = 0; i < groupIds["$$length"]; i++) {
+
+                                let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
+                                let version = artifactVersions[i][childNodes]
+                                let minimumVersion = ""
+                                
+                                // Loop over the list of vulnerabilities of a package
+                                getVulnerability(package, ecosystem).then(function(values) {
+
+                                    if(typeof values !== "undefined"){
+                                        hasVulnerabilities = true
+
+                                        let vulerabilities = values.securityVulnerabilities.nodes
+                                        vulerabilities.forEach(vulnerability => {
+                                            if((version < vulnerability.firstPatchedVersion.identifier) && (vulnerability.firstPatchedVersion.identifier > minimumVersion)){
+                                                minimumVersion = vulnerability.firstPatchedVersion.identifier
+                                            }
+                                        })
+                                    }
+                                    if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
+                                }).catch( error => {
+                                    core.setFailed(error.message);
+                                    }
+                                );
                             }
                         })
 
                         .catch(error => core.setFailed(error.message));
                     }
-                } else {
-                    core.setFailed("We can check for vulnerabilities for any of the languages of this repository")
-                }
-            })
-                
+               }) 
+            } else {
+                core.setFailed("We can't check for vulnerabilities for any of the languages on this repository")
+            } 
 
         }).catch( error => {
             core.setFailed(error.message);
