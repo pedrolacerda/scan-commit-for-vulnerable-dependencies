@@ -162,6 +162,8 @@ try {
 
                                 // console.log(`package: ${package}`)
                                 // console.log(`version: ${version}`)
+
+//als jf;lksjdf ;lkasjdflkasjlfkajs; ldfkjas;ldkfjal;skjfl;asjfk
                                 
                                 // Loop over the list of vulnerabilities of a package
                                 // getVulnerability(package, ecosystem).then( async function(values) {
