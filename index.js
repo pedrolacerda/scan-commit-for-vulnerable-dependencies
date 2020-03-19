@@ -115,10 +115,7 @@ function getVersionValue(versionVariable, xmlDoc){
     } else { // If the version value is a variable or null
 
         let versionVariableTrimmed = versionVariable.toString().replace('{','').replace('}','').replace('$','')
-        console.log(`versionVariableTrimmed: ${versionVariableTrimmed}`)
-
         let versionValue = xmlDoc.getElementsByTagName(versionVariableTrimmed)
-        console.log(`versionValue: ${versionValue}`)
         
         //If it's not possible to find a node with version name, return an empty string
         if(versionValue == null || typeof versionValue === "undefined" || versionValue == "")   return ""
