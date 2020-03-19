@@ -118,7 +118,10 @@ function getVersionValue(versionVariable, xmlDoc){
         //If it's not possible to find a node with version name, return an empty string
         if(versionValue == null || typeof versionValue !== "undefined") return ""
         //otherwise, return the value of the node
-        else return semver.valid(semver.coerce(versionValue[0]["childNodes"].toString()))
+        else {
+            console.log(`Version captured from XML tag: ${semver.valid(semver.coerce(versionValue[0]["childNodes"].toString()))}`)
+            return semver.valid(semver.coerce(versionValue[0]["childNodes"].toString()))
+        }
     }
 }
 
@@ -173,8 +176,8 @@ try {
                             for(i = 0; i < groupIds["$$length"]; i++) {
 
                                 let package = `${groupIds[i]['childNodes']}:${artifactIds[i]['childNodes']}`
-                                let version = artifactVersions[i]['childNodes']
-                                console.log(`version value: ${getVersionValue(version, xmlDoc)}`)                         
+                                let version = getVersionValue(artifactVersions[i]['childNodes'], xmlDoc)
+                                console.log(`version value: ${version}`)                         
                                 let hasVulnerabilities = false
                                 let minimumVersion = ""
                                 // Loop over the list of vulnerabilities of a package
@@ -188,7 +191,7 @@ try {
                                             if(vulnerability.firstPatchedVersion != null && typeof vulnerability.firstPatchedVersion !== 'undefined'){
                                                 // If the version of the package used is lower than the first patched version
                                                 // AND the first patched version of the package is bigger than minimun version registered so far
-                                                if((semver.compare(semver.valid(semver.coerce(version.toString())), semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString()))) == -1)
+                                                if((semver.compare(version, semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString()))) == -1)
                                                 && (semver.compare(semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString())), semver.valid(semver.coerce(minimumVersion.toString()))) == 1)){
                                                     minimumVersion = vulnerability.firstPatchedVersion.identifier
                                                     console.log(`Package version: ${version}`)
