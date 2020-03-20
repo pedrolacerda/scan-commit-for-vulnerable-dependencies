@@ -155,22 +155,22 @@ try {
                         var dependencyFileParser
                         switch(ecosystem) {
                             case 'RUBYGEMS':
-                                dependencyFileParser = require('rubygems-parser')
+                                dependencyFileParser = require('./rubygems-parser.js')
                                 break;
                             case 'NPM':
-                                dependencyFileParser = require('npm-parser')
+                                dependencyFileParser = require('./npm-parser.js')
                                 break;
                             case 'PIP':
-                                dependencyFileParser = require('pip-parser')
+                                dependencyFileParser = require('./pip-parser.js')
                                 break;
                             case 'MAVEN':
-                                dependencyFileParser = require('mvn-parser')
+                                dependencyFileParser = require('./mvn-parser.js')
                                 break;  
                             case 'NUGET':
-                                dependencyFileParser = require('nuget-parser')
+                                dependencyFileParser = require('./nuget-parser.js')
                                 break;                            
                             case 'COMPOSER':
-                                dependencyFileParser = require('composer-parser')
+                                dependencyFileParser = require('./composer-parser.js')
                                 break;
                             default:
                                 core.setFailed("The ecosystem is not supported yet")
