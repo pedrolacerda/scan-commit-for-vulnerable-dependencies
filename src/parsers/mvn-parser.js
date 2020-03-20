@@ -19,7 +19,8 @@ module.exports = {
             let version = getVersionValue(artifactVersions[i]['childNodes'], xmlDoc)
             let hasVulnerabilities = false
             let minimumVersion = ""
-            // Loop over the list of vulnerabilities of a package
+            
+            // Loops over the list of vulnerabilities of a package
             apiCalls.getVulnerability(package, ecosystem).then( async function(values) {
                 if(typeof values !== "undefined"){
                     minimumVersion = "0.0"
