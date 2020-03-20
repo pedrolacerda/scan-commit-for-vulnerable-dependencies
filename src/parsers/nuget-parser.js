@@ -37,7 +37,7 @@ module.exports = {
                             }
                         }
                     })
-                    if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to version ${minimumVersion}`)
+                    if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package} of the ecosystem ${ecosystem}, please update to version ${minimumVersion}`)
 
                 }
             }).catch( error => {
