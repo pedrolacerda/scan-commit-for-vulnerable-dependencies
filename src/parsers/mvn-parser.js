@@ -1,6 +1,6 @@
 const semver = require('semver');
 const DOMParser = require('xmldom').DOMParser;
-const apiCalls = require('./api/api-calls.js')   
+const apiCalls = require('../api/api-calls.js')   
 
 module.exports = {
     pomXmlParser: async function (dependencyFile) {
