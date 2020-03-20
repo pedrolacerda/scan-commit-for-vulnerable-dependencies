@@ -36,7 +36,9 @@ const languagesEcosystems = [
  * @params package(String):   full URI of the package 
  * @params ecosystem(String): ecosystem from the list [RUBYGEMS,NPM,PIP,MAVEN,NUGET,COMPOSER]
  */
-async function getVulnerability(octokit, package, ecosystem) {    
+async function getVulnerability(octokit, package, ecosystem) {   
+    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
+ 
     let query = ` 
     query { 
         securityVulnerabilities(ecosystem:${ecosystem}, first:100, package:"${package}") {
