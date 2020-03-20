@@ -152,25 +152,25 @@ try {
                         console.log(`The dependency file ${file.filename} was changed`)
                         let ecosystem = dependencyFileName.ecosystem
                         console.log(`Ecosystem is: ${ecosystem}`)
-
+                        const dependencyFileParser
                         switch(ecosystem) {
                             case 'RUBYGEMS':
-                                const dependencyFileParser = require('rubygems-parser.js')
+                                dependencyFileParser = require('rubygems-parser.js')
                                 break;
                             case 'NPM':
-                                const dependencyFileParser = require('npm-parser.js')
+                                dependencyFileParser = require('npm-parser.js')
                                 break;
                             case 'PIP':
-                                const dependencyFileParser = require('pip-parser.js')
+                                dependencyFileParser = require('pip-parser.js')
                                 break;
                             case 'MAVEN':
-                                const dependencyFileParser = require('mvn-parser.js')
+                                dependencyFileParser = require('mvn-parser.js')
                                 break;  
                             case 'NUGET':
-                                const dependencyFileParser = require('nuget-parser.js')
+                                dependencyFileParser = require('nuget-parser.js')
                                 break;                            
                             case 'COMPOSER':
-                                const dependencyFileParser = require('composer-parser.js')
+                                dependencyFileParser = require('composer-parser.js')
                                 break;
                             default:
                                 core.setFailed("The ecosystem is not supported yet")
