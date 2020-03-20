@@ -36,9 +36,7 @@ const languagesEcosystems = [
  * @params package(String):   full URI of the package 
  * @params ecosystem(String): ecosystem from the list [RUBYGEMS,NPM,PIP,MAVEN,NUGET,COMPOSER]
  */
-async function getVulnerability(package, ecosystem) {
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
-    
+async function getVulnerability(octokit, package, ecosystem) {    
     let query = ` 
     query { 
         securityVulnerabilities(ecosystem:${ecosystem}, first:100, package:"${package}") {
@@ -61,8 +59,7 @@ async function getVulnerability(package, ecosystem) {
 /*
  * Get all files from a PR
  */
-async function getPrFiles(prNumber, owner, repo) {
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
+async function getPrFiles(octokit, prNumber, owner, repo) {
 
     let {data: files} = await octokit.pulls.listFiles({
         owner: owner,
@@ -76,8 +73,7 @@ async function getPrFiles(prNumber, owner, repo) {
 /*
  * Get a list of languages used on the repo
  */
-async function getLanguageList(owner, repo) {
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
+async function getLanguageList(octokit, owner, repo) {
 
     let {data: languageList } =  await octokit.repos.listLanguages({
         owner: owner,
@@ -90,9 +86,8 @@ async function getLanguageList(owner, repo) {
 /*
  * Get the content of a file
  */
-async function getFileInCommit(owner, repo, path, ref) {
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
-    
+async function getFileInCommit(octokit, owner, repo, path, ref) {
+  
     let {data: fileInCommity } =  await octokit.repos.getContents({
         owner: owner,
         repo: repo,
@@ -126,12 +121,13 @@ function getVersionValue(versionVariable, xmlDoc){
 }
 
 try {
+    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
     let context = github.context
 
     if(context.eventName == `pull_request`){
         let languagesEcosystemsInPR
 
-        getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
+        getLanguageList(octokit, context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
 
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
@@ -142,7 +138,7 @@ try {
             }
         );
 
-        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name)
+        getPrFiles(octokit, context.payload.number, context.payload.repository.owner.login, context.payload.repository.name)
         .then( async files => {            
 
             //Needs to have at least one language that GitHub scans vulnerabilities
@@ -157,11 +153,32 @@ try {
                         let ecosystem = dependencyFileName.ecosystem
                         console.log(`Ecosystem is: ${ecosystem}`)
 
-                        //Get file content to scan each vulnerability
-                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
-                        .then( async fileChanged => {
+                        switch(ecosystem) {
+                            case 'RUBYGEMS':
+                                const dependencyFileParser = require('rubygems-parser.js')
+                                break;
+                            case 'NPM':
+                                const dependencyFileParser = require('npm-parser.js')
+                                break;
+                            case 'PIP':
+                                const dependencyFileParser = require('pip-parser.js')
+                                break;
+                            case 'MAVEN':
+                                const dependencyFileParser = require('mvn-parser.js')
+                                break;  
+                            case 'NUGET':
+                                const dependencyFileParser = require('nuget-parser.js')
+                                break;                            
+                            case 'COMPOSER':
+                                const dependencyFileParser = require('composer-parser.js')
+                                break;
+                            default:
+                                core.setFailed("The ecosystem is not supported yet")
+                          }
 
-                            // console.log(`Arquivo:\n ${fileChanged}`)
+                        //Get file content to scan each vulnerability
+                        getFileInCommit(octokit, context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
+                        .then( async fileChanged => {
 
                             let parser = new DOMParser()
                             let xmlDoc = parser.parseFromString(fileChanged)
@@ -186,6 +203,7 @@ try {
 
                                         vulerabilities.forEach( vulnerability => {
                                             if(vulnerability.firstPatchedVersion != null && typeof vulnerability.firstPatchedVersion !== 'undefined'){
+                                                
                                                 // If the version of the package used is lower than the first patched version
                                                 // AND the first patched version of the package is bigger than minimun version registered so far
                                                 if((semver.compare(semver.valid(semver.coerce(version.toString())), semver.valid(semver.coerce(vulnerability.firstPatchedVersion.identifier.toString()))) == -1)
@@ -195,7 +213,7 @@ try {
                                                 }
                                             }
                                         })
-                                        if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to the version ${minimumVersion}`)
+                                        if(hasVulnerabilities) core.setFailed(`There's a vulnerability in the package ${package}, please update to version ${minimumVersion}`)
 
                                     }
                                 }).catch( error => {
