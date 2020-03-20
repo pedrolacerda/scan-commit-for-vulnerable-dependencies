@@ -1,5 +1,6 @@
 const semver = require('semver');
 const DOMParser = require('xmldom').DOMParser;
+const apiCalls = require('./api/api-calls.js')   
 
 module.exports = {
     pomXmlParser: async function (dependencyFile) {
@@ -19,7 +20,7 @@ module.exports = {
             let hasVulnerabilities = false
             let minimumVersion = ""
             // Loop over the list of vulnerabilities of a package
-            getVulnerability(package, ecosystem).then( async function(values) {
+            apiCalls.getVulnerability(package, ecosystem).then( async function(values) {
                 if(typeof values !== "undefined"){
                     minimumVersion = "0.0"
 
