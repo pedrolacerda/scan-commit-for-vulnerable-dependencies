@@ -184,7 +184,7 @@ try {
                         getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
                         .then( async fileChanged => {
 
-                            await dependencyFileParser(fileChanged)
+                            await dependencyFileParser.pomXmlParser(fileChanged)
 
                         }).catch(error => {
                             core.setFailed(error.message)
