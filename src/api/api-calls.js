@@ -1,3 +1,5 @@
+const github = require('@actions/github');
+
 module.exports = {
     /*
     * Get a specific vulerability
