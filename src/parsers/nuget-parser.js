@@ -9,7 +9,7 @@ const apiCalls = require('../api/api-calls.js')
 module.exports = {
     getVulnerabilities: async function (dependencyFile,ecosystem) {
         let parser = new DOMParser()
-        let xmlDoc = parser.parseFromString(contents)
+        let xmlDoc = parser.parseFromString(dependencyFile)
         let dependencies = xmlDoc.getElementsByTagName('dependency')
 
         for(i = 0; i < dependencies["$$length"]; i++) {
