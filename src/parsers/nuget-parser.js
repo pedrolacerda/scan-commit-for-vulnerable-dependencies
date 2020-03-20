@@ -44,5 +44,6 @@ module.exports = {
                 core.setFailed(error.message)
                 console.log(error)
             })
+        }
     }
 }
