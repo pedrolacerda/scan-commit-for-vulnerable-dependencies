@@ -15,8 +15,8 @@ module.exports = {
         for(i = 0; i < dependencies["$$length"]; i++) {
             let package = dependencies[i]['attributes'][0].value
             let version = dependencies[i]['attributes'][1].value
-            console.log(`dependencies[${i}].id: ${package}`);
-            console.log(`dependencies[${i}].version: ${version}`);
+            let hasVulnerabilities = false
+            let minimumVersion = ""
 
             // Loops over the list of vulnerabilities of a package
             apiCalls.getVulnerability(package, ecosystem).then( async function(values) {
