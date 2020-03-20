@@ -37,7 +37,6 @@ const languagesEcosystems = [
  * @params ecosystem(String): ecosystem from the list [RUBYGEMS,NPM,PIP,MAVEN,NUGET,COMPOSER]
  */
 async function getVulnerability(package, ecosystem) {
-    console.log(`Get Vulnerabilities`)
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
  
     let query = ` 
@@ -63,6 +62,7 @@ async function getVulnerability(package, ecosystem) {
  * Get all files from a PR
  */
 async function getPrFiles(octokit, prNumber, owner, repo) {
+    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
     let {data: files} = await octokit.pulls.listFiles({
         owner: owner,
@@ -77,6 +77,7 @@ async function getPrFiles(octokit, prNumber, owner, repo) {
  * Get a list of languages used on the repo
  */
 async function getLanguageList(octokit, owner, repo) {
+    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
 
     let {data: languageList } =  await octokit.repos.listLanguages({
         owner: owner,
@@ -90,7 +91,8 @@ async function getLanguageList(octokit, owner, repo) {
  * Get the content of a file
  */
 async function getFileInCommit(octokit, owner, repo, path, ref) {
-  
+    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
+
     let {data: fileInCommity } =  await octokit.repos.getContents({
         owner: owner,
         repo: repo,
@@ -124,13 +126,12 @@ function getVersionValue(versionVariable, xmlDoc){
 }
 
 try {
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
     let context = github.context
 
     if(context.eventName == `pull_request`){
         let languagesEcosystemsInPR
 
-        getLanguageList(octokit, context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
+        getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
 
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
@@ -141,7 +142,7 @@ try {
             }
         );
 
-        getPrFiles(octokit, context.payload.number, context.payload.repository.owner.login, context.payload.repository.name)
+        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name)
         .then( async files => {            
 
             //Needs to have at least one language that GitHub scans vulnerabilities
