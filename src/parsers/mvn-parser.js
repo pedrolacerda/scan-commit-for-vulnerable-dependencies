@@ -3,7 +3,7 @@ const DOMParser = require('xmldom').DOMParser;
 const apiCalls = require('../api/api-calls.js')   
 
 module.exports = {
-    pomXmlParser: async function (dependencyFile) {
+    getVulnerabilities: async function (dependencyFile,ecosystem) {
 
         let parser = new DOMParser()
         let xmlDoc = parser.parseFromString(dependencyFile)

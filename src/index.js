@@ -90,7 +90,7 @@ try {
                         apiCalls.getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
                         .then( async fileChanged => {
 
-                            await dependencyFileParser.pomXmlParser(fileChanged)
+                            await dependencyFileParser.getVulnerabilities(fileChanged,ecosystem)
 
                         }).catch(error => {
                             core.setFailed(error.message)
