@@ -1,5 +1,5 @@
 module.exports = {
-    pomXmlParser: async function (dependencyFile) {
+    'mvn-parser': async function (dependencyFile) {
 
         let parser = new DOMParser()
         let xmlDoc = parser.parseFromString(fileChanged)
