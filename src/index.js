@@ -36,7 +36,7 @@ const languagesEcosystems = [
  * @params package(String):   full URI of the package 
  * @params ecosystem(String): ecosystem from the list [RUBYGEMS,NPM,PIP,MAVEN,NUGET,COMPOSER]
  */
-async function getVulnerability(octokit, package, ecosystem) {   
+async function getVulnerability(package, ecosystem) {   
     let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
  
     let query = ` 
@@ -179,7 +179,7 @@ try {
                           }
 
                         //Get file content to scan each vulnerability
-                        getFileInCommit(octokit, context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
+                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
                         .then( async fileChanged => {
 
                             let parser = new DOMParser()
