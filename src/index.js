@@ -105,25 +105,6 @@ async function getFileInCommit(owner, repo, path, ref) {
     return fileInCommity
 }
 
-function getVersionValue(versionVariable, xmlDoc){
-
-    var version = semver.valid(semver.coerce(versionVariable.toString()))
-    //if the version value is explicit return it formated
-    if(version != null && typeof version !== "undefined") {
-        return version
-    } else { // If the version value is a variable or null
-
-        let versionVariableTrimmed = versionVariable.toString().replace('{','').replace('}','').replace('$','')
-        let versionValue = xmlDoc.getElementsByTagName(versionVariableTrimmed)
-        
-        //If it's not possible to find a node with version name, return an empty string
-        if(versionValue == null || typeof versionValue === "undefined" || versionValue == "")   return ""
-
-        //otherwise, return the value of the node
-        else return semver.valid(semver.coerce(versionValue[0]["childNodes"].toString()))
-    }
-}
-
 try {
     let context = github.context
 
