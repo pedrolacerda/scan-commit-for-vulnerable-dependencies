@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const semver = require('semver');
+const apiCalls = require('./api/api-calls.js')   
 
 // [TO-DO] Make it smarter later on
 const languagesEcosystems = [
@@ -30,88 +31,13 @@ const languagesEcosystems = [
     }
 ]
 
-/*
- * Get a specific vulerability
- * @params package(String):   full URI of the package 
- * @params ecosystem(String): ecosystem from the list [RUBYGEMS,NPM,PIP,MAVEN,NUGET,COMPOSER]
- */
-async function getVulnerability(package, ecosystem) {
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
- 
-    let query = ` 
-    query { 
-        securityVulnerabilities(ecosystem:${ecosystem}, first:100, package:"${package}") {
-            nodes {
-                firstPatchedVersion { identifier },
-                severity,
-                updatedAt,
-                vulnerableVersionRange
-            }
-        }
-    }`
-
-    return await octokit.graphql(query, {
-        headers: {
-            authorization: `token ${core.getInput('GITHUB_TOKEN')}`
-        }
-    });
-}
-
-/*
- * Get all files from a PR
- */
-async function getPrFiles(prNumber, owner, repo) {
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
-
-    let {data: files} = await octokit.pulls.listFiles({
-        owner: owner,
-        repo: repo,
-        pull_number: prNumber
-    })
-
-    return files
-}
-
-/*
- * Get a list of languages used on the repo
- */
-async function getLanguageList(owner, repo) {
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
-
-    let {data: languageList } =  await octokit.repos.listLanguages({
-        owner: owner,
-        repo: repo    
-    })
-
-    return languageList
-}
-
-/*
- * Get the content of a file
- */
-async function getFileInCommit(owner, repo, path, ref) {
-    let octokit = new github.GitHub(core.getInput('GITHUB_TOKEN'));
-
-    let {data: fileInCommity } =  await octokit.repos.getContents({
-        owner: owner,
-        repo: repo,
-        path: path,
-        ref: ref,
-        mediaType: {
-            format: 'raw'
-        }
-    })
-
-    return fileInCommity
-}
-
 try {
     let context = github.context
 
     if(context.eventName == `pull_request`){
         let languagesEcosystemsInPR
 
-        getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( languages => {
+        apiCalls.getLanguageList(context.payload.repository.owner.login, context.payload.repository.name).then( async languages => {
 
             // Checks if the PR has commits with languages in the ecosystem
             // and creates a list with them
@@ -122,7 +48,7 @@ try {
             }
         );
 
-        getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name)
+        apiCalls.getPrFiles(context.payload.number, context.payload.repository.owner.login, context.payload.repository.name)
         .then( async files => {            
 
             //Needs to have at least one language that GitHub scans vulnerabilities
@@ -161,7 +87,7 @@ try {
                           }
 
                         //Get file content to scan each vulnerability
-                        getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
+                        apiCalls.getFileInCommit(context.payload.repository.owner.login, context.payload.repository.name, file.filename, context.payload.pull_request.head.ref)
                         .then( async fileChanged => {
 
                             await dependencyFileParser.pomXmlParser(fileChanged)

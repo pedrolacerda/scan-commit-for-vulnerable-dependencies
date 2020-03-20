@@ -2,7 +2,7 @@ const semver = require('semver');
 const DOMParser = require('xmldom').DOMParser;
 
 module.exports = {
-    'pomXmlParser': async function (dependencyFile) {
+    pomXmlParser: async function (dependencyFile) {
 
         let parser = new DOMParser()
         let xmlDoc = parser.parseFromString(dependencyFile)
