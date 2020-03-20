@@ -9,7 +9,6 @@ module.exports = {
         let parser = new DOMParser()
         let xmlDoc = parser.parseFromString(dependencyFile)
         
-        // // These are the two tags that add packages to the repo
         let groupIds = xmlDoc.getElementsByTagName('groupId')
         let artifactIds = xmlDoc.getElementsByTagName('artifactId')
         let artifactVersions = xmlDoc.getElementsByTagName('version')
