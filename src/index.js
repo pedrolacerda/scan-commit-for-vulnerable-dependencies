@@ -152,7 +152,7 @@ try {
                         console.log(`The dependency file ${file.filename} was changed`)
                         let ecosystem = dependencyFileName.ecosystem
                         console.log(`Ecosystem is: ${ecosystem}`)
-                        const dependencyFileParser
+                        var dependencyFileParser
                         switch(ecosystem) {
                             case 'RUBYGEMS':
                                 dependencyFileParser = require('rubygems-parser.js')
